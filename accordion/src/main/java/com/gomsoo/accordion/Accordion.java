@@ -1,6 +1,7 @@
 package com.gomsoo.accordion;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -195,5 +196,26 @@ public class Accordion extends ViewGroup {
     @Override
     public void removeAllViews() {
         throw new UnsupportedOperationException("removeAllViews() is not supported in Accordion");
+    }
+
+    public void setContentView(@LayoutRes int layoutResID) {
+        mContentLayout.removeAllViews();
+        inflate(getContext(), layoutResID, mContentLayout);
+        requestLayout();
+        invalidate();
+    }
+
+    public void setContentView(View view) {
+        mContentLayout.removeAllViews();
+        mContentLayout.addView(view);
+        requestLayout();
+        invalidate();
+    }
+
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        mContentLayout.removeAllViews();
+        mContentLayout.addView(view, params);
+        requestLayout();
+        invalidate();
     }
 }
