@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="TEST" />
 
-    <com.gomsoo.accordion.Accordion
+    <com.gomsoo.accordion.AccordionView
         android:id="@+id/accordion"
         android:background="#ffddddff"
         android:layout_width="match_parent"

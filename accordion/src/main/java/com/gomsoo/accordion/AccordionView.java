@@ -13,23 +13,23 @@ import android.widget.FrameLayout;
  *
  * Created by Moon on 2018-02-10.
  */
-public class Accordion extends ViewGroup {
+public class AccordionView extends ViewGroup {
 
     private FrameLayout mContentLayout;
 
-    public Accordion(Context context) {
+    public AccordionView(Context context) {
         this(context, null);
     }
 
-    public Accordion(Context context, AttributeSet attrs) {
+    public AccordionView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public Accordion(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AccordionView(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public Accordion(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public AccordionView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
         initAttributes(context, attrs);
@@ -70,7 +70,7 @@ public class Accordion extends ViewGroup {
     }
 
     private void initChildren(Context context) {
-        View rootView = LayoutInflater.from(context).inflate(R.layout.accordion, this, false);
+        View rootView = LayoutInflater.from(context).inflate(R.layout.accordion_layout, this, false);
         LayoutParams params = rootView.getLayoutParams();
         if (params == null) {
             params = generateDefaultLayoutParams();
