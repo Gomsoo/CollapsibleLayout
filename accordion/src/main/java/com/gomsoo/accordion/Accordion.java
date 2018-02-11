@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -69,8 +70,15 @@ public class Accordion extends ViewGroup {
     }
 
     private void initChildren(Context context) {
-        View rootView = inflate(context, R.layout.accordion, null);
-        super.addView(rootView);
+        View rootView = LayoutInflater.from(context).inflate(R.layout.accordion, this, false);
+        LayoutParams params = rootView.getLayoutParams();
+        if (params == null) {
+            params = generateDefaultLayoutParams();
+            if (params == null) {
+                throw new IllegalArgumentException("generateDefaultLayoutParams() cannot return null");
+            }
+        }
+        super.addView(rootView, -1, params);
         mContentLayout = rootView.findViewById(R.id.accordionContentLayout);
     }
 
@@ -82,32 +90,24 @@ public class Accordion extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
-//
-//        int minimumWidth = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
-//        if (mItemList != null) {
-//            for (int i = mItemList.size() - 1; i >= 0; i--) {
-//                Item item = mItemList.get(i);
-//                minimumWidth += Math.max(mTextPaint.measureText(item.name), (mBarWidth * 2) + mPaddingBetweenBars);
-//                if (i != mItemList.size() - 1) minimumWidth += mPaddingBetweenItems;
-//
-//                if (i == mItemList.size() - 1 || minimumWidth < (widthSpecSize - getPaddingLeft() - getPaddingRight())) {
-//                    mIndexToDraw = i;
-//                    mWidthOfDataToDraw = minimumWidth;
-//                    mMaximumValue = Math.max(mMaximumValue, Math.max(item.firstValue, item.secondValue));
-//                }
-//            }
-//        }
-//        int width = resolveSize(minimumWidth, widthMeasureSpec);
-//
-//        int minimumHeight = getPaddingTop() + getPaddingBottom() + getSuggestedMinimumHeight() + (int) mTextPaint.getTextSize();
-//        int height = resolveSize(minimumHeight, heightMeasureSpec);
-//
-//        setMeasuredDimension(width, height);
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+
+        View child = getChildAt(0);
+        int minimumWidth = child.getMeasuredWidth();
+        int width = resolveSize(minimumWidth, widthMeasureSpec);
+
+        int minimumHeight = child.getMeasuredHeight();
+        int height = resolveSize(minimumHeight, heightMeasureSpec);
+
+        setMeasuredDimension(width, height);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if (getChildCount() == 0) return;
+        if (changed) {
+            getChildAt(0).layout(l, t, r, b);
+        }
     }
 
     /**
