@@ -14,22 +14,27 @@
         <View
             android:id="@+id/accordionHeaderColorBand"
             android:layout_width="12dp"
-            android:background="#ff00ff00"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/colorPrimary" />
 
         <TextView
             android:id="@+id/accordionHeaderTitleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:background="#dddddd"
-            android:text="HEADER TITLE"
-            android:drawableStart="@drawable/arrow_down" />
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/arrow_down"
+            android:text="HEADER TITLE" />
 
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/accordionContentLayout"
         android:layout_width="match_parent"
+        android:background="#ffff0000"
         android:layout_height="match_parent" />
 
 </LinearLayout>

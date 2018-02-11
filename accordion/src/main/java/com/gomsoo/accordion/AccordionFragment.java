@@ -52,10 +52,10 @@ public class AccordionFragment extends Fragment {
 
         mContentLayout.removeAllViews();
 
-        if (mContentViewParams != null)
-            mContentLayout.addView(mContentView, mContentViewParams);
-        else
+        if (mContentViewParams == null)
             mContentLayout.addView(mContentView);
+        else
+            mContentLayout.addView(mContentView, mContentViewParams);
 
         mContentLayout.requestLayout();
         mContentLayout.invalidate();
