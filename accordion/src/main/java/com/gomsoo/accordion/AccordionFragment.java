@@ -29,6 +29,8 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
     private int mExpandedHeight;
     private int mExpandedParamsHeight;
 
+    private View mColorBandView;
+    private boolean mIsShowColorBand = true;
     private View mMarkView;
 
     private View mContentView;
@@ -59,6 +61,10 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         View rootView = inflater.inflate(R.layout.accordion_layout, container, false);
 
         rootView.findViewById(R.id.accordionHeader).setOnClickListener(this);
+
+        mColorBandView = rootView.findViewById(R.id.accordionHeaderColorBand);
+        applyColorBandVisibility();
+
         mMarkView = rootView.findViewById(R.id.accordionHeaderMarkView);
 
         mTitleView = rootView.findViewById(R.id.accordionHeaderTitleView);
@@ -145,6 +151,11 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         applyTitle();
     }
 
+    public void setShowColorBand(boolean show) {
+        mIsShowColorBand = show;
+        applyColorBandVisibility();
+    }
+
     private void attachContentView() {
         if (mContentLayout == null || mContentView == null) return;
 
@@ -169,6 +180,11 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
 
         mTitleView.setTextSize(mTitle.unit, mTitle.size);
         mTitleView.setTextColor(mTitle.color);
+    }
+
+    private void applyColorBandVisibility() {
+        if (mColorBandView == null) return;
+        mColorBandView.setVisibility(mIsShowColorBand ? View.VISIBLE : View.GONE);
     }
 
     @Override
