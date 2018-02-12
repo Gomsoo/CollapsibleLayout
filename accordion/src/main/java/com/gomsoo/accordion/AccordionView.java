@@ -37,21 +37,6 @@ public class AccordionView extends ViewGroup {
     }
 
     private void init(Context context) {
-//        mTextPaint = new Paint();
-//        mTextPaint.setColor(ContextCompat.getColor(context, R.color.black));
-//        mTextPaint.setTextSize(getResources().getDimension(R.dimen.double_chart_view_default_text_size));
-//        mTextPaint.setTextAlign(Paint.Align.CENTER);
-//
-//        mFirstBarPaint = new Paint();
-//        mFirstBarPaint.setColor(ContextCompat.getColor(context, R.color.incomeBlue));
-//
-//        mSecondBarPaint = new Paint();
-//        mSecondBarPaint.setColor(ContextCompat.getColor(context, R.color.expenditureRed));
-//
-//        mBarWidth = getResources().getDimensionPixelSize(R.dimen.double_chart_view_default_bar_width);
-//        mPaddingBetweenItems = getResources().getDimensionPixelSize(R.dimen.double_chart_view_default_padding_between_item);
-//        mPaddingBetweenBars = getResources().getDimensionPixelSize(R.dimen.double_chart_view_default_padding_in_item);
-//        mPaddingBetweenBarAndText = getResources().getDimensionPixelSize(R.dimen.double_chart_view_default_padding_between_bar_and_text);
     }
 
     private void initAttributes(Context context, @Nullable AttributeSet attrs) {

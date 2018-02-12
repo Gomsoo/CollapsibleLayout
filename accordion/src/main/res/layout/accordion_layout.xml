@@ -6,9 +6,11 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/accordionHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffdddd"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <View
@@ -18,6 +20,14 @@
             android:layout_marginEnd="16dp"
             android:background="?attr/colorPrimary" />
 
+        <ImageView
+            android:id="@+id/accordionHeaderMarkView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/expand_or_collpase"
+            android:src="@drawable/arrow_down" />
+
         <TextView
             android:id="@+id/accordionHeaderTitleView"
             android:layout_width="wrap_content"
@@ -25,8 +35,6 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:background="#dddddd"
-            android:drawablePadding="16dp"
-            android:drawableStart="@drawable/arrow_down"
             android:text="HEADER TITLE" />
 
     </LinearLayout>
@@ -34,7 +42,7 @@
     <FrameLayout
         android:id="@+id/accordionContentLayout"
         android:layout_width="match_parent"
-        android:background="#ffff0000"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#ffff0000" />
 
 </LinearLayout>
