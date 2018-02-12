@@ -20,5 +20,6 @@ public class MainActivity extends AppCompatActivity {
         fragment.setContentView(R.layout.accordion_content);
         fragment.setTitle(R.string.title, true, false);
         fragment.setTitleSize(20);
+        fragment.setTitleColorByResource(R.color.colorAccent);
     }
 }

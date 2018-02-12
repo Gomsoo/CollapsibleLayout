@@ -1,12 +1,15 @@
 package com.gomsoo.accordion;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +46,7 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         private boolean titleItalic;
         private int unit = TypedValue.COMPLEX_UNIT_SP;
         private float size = 15;
+        private int color = Color.BLACK;
     }
 
     public AccordionFragment() {
@@ -129,6 +133,18 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         applyTitle();
     }
 
+    public void setTitleColor(int color) {
+        mTitle.color = color;
+        applyTitle();
+    }
+
+    public void setTitleColorByResource(@ColorRes int colorResId) {
+        if (getContext() == null)
+            throw new IllegalArgumentException("context is null");
+        mTitle.color = ContextCompat.getColor(getContext(), colorResId);
+        applyTitle();
+    }
+
     private void attachContentView() {
         if (mContentLayout == null || mContentView == null) return;
 
@@ -152,6 +168,7 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
                 (mTitle.titleItalic ? Typeface.ITALIC : Typeface.NORMAL));
 
         mTitleView.setTextSize(mTitle.unit, mTitle.size);
+        mTitleView.setTextColor(mTitle.color);
     }
 
     @Override
