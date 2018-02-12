@@ -18,5 +18,7 @@ public class MainActivity extends AppCompatActivity {
         AccordionFragment fragment = (AccordionFragment)
                 getSupportFragmentManager().findFragmentById(R.id.accordionFragment);
         fragment.setContentView(R.layout.accordion_content);
+        fragment.setTitle(R.string.title, true, false);
+        fragment.setTitleSize(20);
     }
 }

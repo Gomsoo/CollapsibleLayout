@@ -1,16 +1,20 @@
 package com.gomsoo.accordion;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 /**
  *
@@ -30,6 +34,21 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
     private boolean mIsExpand = true;
     private long mAnimationDurationInMillis = 300L;
 
+    private TextView mTitleView;
+    private Title mTitle;
+
+    private static class Title {
+        private String text;
+        private boolean titleBold;
+        private boolean titleItalic;
+        private int unit = TypedValue.COMPLEX_UNIT_SP;
+        private float size = 15;
+    }
+
+    public AccordionFragment() {
+        mTitle = new Title();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,13 +57,16 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         rootView.findViewById(R.id.accordionHeader).setOnClickListener(this);
         mMarkView = rootView.findViewById(R.id.accordionHeaderMarkView);
 
+        mTitleView = rootView.findViewById(R.id.accordionHeaderTitleView);
+        applyTitle();
+
         mContentLayout = rootView.findViewById(R.id.accordionContentLayout);
         attachContentView();
         return rootView;
     }
 
-    public void setContentView(@LayoutRes int layoutResID) {
-        mContentView = LayoutInflater.from(getContext()).inflate(layoutResID, mContentLayout, false);
+    public void setContentView(@LayoutRes int layoutResId) {
+        mContentView = LayoutInflater.from(getContext()).inflate(layoutResId, mContentLayout, false);
         mContentViewParams = null;
         attachContentView();
     }
@@ -61,6 +83,52 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         attachContentView();
     }
 
+    public void setTitle(String title) {
+        mTitle.text = title;
+        applyTitle();
+    }
+
+    public void setTitle(@StringRes int titleResId) {
+        mTitle.text = getString(titleResId);
+        applyTitle();
+    }
+
+    public void setTitleBold(boolean bold) {
+        mTitle.titleBold = bold;
+        applyTitle();
+    }
+
+    public void setTitleItalic(boolean italic) {
+        mTitle.titleItalic = italic;
+        applyTitle();
+    }
+
+    public void setTitle(String title, boolean bold, boolean italic) {
+        mTitle.text = title;
+        mTitle.titleBold = bold;
+        mTitle.titleItalic = italic;
+        applyTitle();
+    }
+
+    public void setTitle(@StringRes int titleResId, boolean bold, boolean italic) {
+        mTitle.text = getString(titleResId);
+        mTitle.titleBold = bold;
+        mTitle.titleItalic = italic;
+        applyTitle();
+    }
+
+    public void setTitleSize(float size) {
+        mTitle.unit = TypedValue.COMPLEX_UNIT_SP;
+        mTitle.size = size;
+        applyTitle();
+    }
+
+    public void setTitleSize(int unit, float size) {
+        mTitle.unit = unit;
+        mTitle.size = size;
+        applyTitle();
+    }
+
     private void attachContentView() {
         if (mContentLayout == null || mContentView == null) return;
 
@@ -73,6 +141,17 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
 
         mContentLayout.requestLayout();
         mContentLayout.invalidate();
+    }
+
+    private void applyTitle() {
+        if (mTitleView == null) return;
+        mTitleView.setText(mTitle.text);
+
+        mTitleView.setTypeface(mTitleView.getTypeface(), mTitle.titleBold ?
+                (mTitle.titleItalic ? Typeface.BOLD_ITALIC : Typeface.BOLD) :
+                (mTitle.titleItalic ? Typeface.ITALIC : Typeface.NORMAL));
+
+        mTitleView.setTextSize(mTitle.unit, mTitle.size);
     }
 
     @Override
