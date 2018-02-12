@@ -105,13 +105,15 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         private ViewGroup.LayoutParams mTargetParams;
         private int mInitialHeight;
 
-        private View mExpandMark;
+        private View mExpandedMark;
+        private float mInitialRotation;
 
-        private CollapseAnimation(View targetView, View expandMark, long durationInMillis) {
+        private CollapseAnimation(View targetView, View expandedMark, long durationInMillis) {
             mTargetView = targetView;
             mTargetParams = targetView.getLayoutParams();
             mInitialHeight = targetView.getHeight();
-            mExpandMark = expandMark;
+            mExpandedMark = expandedMark;
+            mInitialRotation = expandedMark.getRotation();
             setDuration(durationInMillis);
 
             // targetView의 parent가 invalidate 되지 않아 최초 한 번 이후 applyTransformation이
@@ -123,13 +125,14 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         protected void applyTransformation(float interpolatedTime, Transformation t) {
             super.applyTransformation(interpolatedTime, t);
 
-            if (interpolatedTime == 0f) {
-                mTargetView.setVisibility(View.VISIBLE);
-            } else if (interpolatedTime == 1f) {
+            mTargetParams.height = (int) (mInitialHeight * (1 - interpolatedTime));
+            mTargetView.requestLayout();
+
+            mExpandedMark.setRotation(
+                    mInitialRotation * (1 - interpolatedTime) + -90f * interpolatedTime);
+
+            if (interpolatedTime == 1f) {
                 mTargetView.setVisibility(View.GONE);
-            } else {
-                mTargetParams.height = (int) (mInitialHeight * (1 - interpolatedTime));
-                mTargetView.requestLayout();
             }
         }
     }
@@ -144,6 +147,7 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         private int mExpandedParamsHeight;
 
         private View mExpandedMark;
+        private float mInitialRotation;
 
         private ExpandAnimation(View targetView, int expandedHeight, int expandedParamsHeight,
                                 View expandedMark, long durationInMillis) {
@@ -153,6 +157,7 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
             mExpandedHeight = expandedHeight;
             mExpandedParamsHeight = expandedParamsHeight;
             mExpandedMark = expandedMark;
+            mInitialRotation = expandedMark.getRotation();
             setDuration(durationInMillis);
 
             // targetView의 parent가 invalidate 되지 않아 최초 한 번 이후 applyTransformation이
@@ -164,14 +169,15 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         protected void applyTransformation(float interpolatedTime, Transformation t) {
             super.applyTransformation(interpolatedTime, t);
 
-            if (interpolatedTime == 0f) {
-                mTargetView.setVisibility(View.VISIBLE);
-            } else if (interpolatedTime == 1f) {
+            mTargetParams.height = (int)
+                    (mExpandedHeight * interpolatedTime + mInitialHeight * (1 - interpolatedTime));
+            mTargetView.requestLayout();
+
+            mExpandedMark.setRotation(
+                    mInitialRotation * (1 - interpolatedTime) + 0 * interpolatedTime);
+
+            if (interpolatedTime == 1f) {
                 mTargetParams.height = mExpandedParamsHeight;
-                mTargetView.requestLayout();
-            } else {
-                mTargetParams.height = (int)
-                        (mExpandedHeight * interpolatedTime + mInitialHeight * (1 - interpolatedTime));
                 mTargetView.requestLayout();
             }
         }
