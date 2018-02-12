@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffff00"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/shadow_below_title" />
 
     <LinearLayout
         android:id="@+id/accordionHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffdddd"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -34,15 +37,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
-            android:background="#dddddd"
             android:text="HEADER TITLE" />
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@drawable/shadow_below_title" />
+
     <FrameLayout
         android:id="@+id/accordionContentLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffff0000" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
