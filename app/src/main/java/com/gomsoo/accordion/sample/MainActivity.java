@@ -27,5 +27,11 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().findFragmentById(R.id.accordionFragment2);
         fragment2.setContentView(R.layout.accordion_content);
         fragment2.setTitleView(R.layout.custom_title);
+
+        AccordionFragment fragment3 = (AccordionFragment)
+                getSupportFragmentManager().findFragmentById(R.id.accordionFragment3);
+        fragment3.setContentView(R.layout.accordion_content);
+        fragment3.setHeaderView(R.layout.custom_header);
+        fragment3.setAnimationDuration(600);
     }
 }

@@ -1,5 +1,6 @@
 package com.gomsoo.accordion;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import android.widget.TextView;
  * Created by Moon on 2018-02-12.
  */
 public class AccordionFragment extends Fragment implements View.OnClickListener {
+
+    private View mRootView;
 
     private FrameLayout mContentContainer;
     private int mExpandedHeight;
@@ -42,7 +46,9 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
     private TextView mTitleView;
     private Title mTitle;
 
-    private FrameLayout mTitleContainer;
+    private FrameLayout mHeaderCustomContainer;
+    private View mCustomHeaderView;
+    private FrameLayout mTitleCustomContainer;
     private View mCustomTitleView;
 
     private static class Title {
@@ -58,28 +64,38 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         mTitle = new Title();
     }
 
+    @Override
+    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+        super.onInflate(context, attrs, savedInstanceState);
+        
+    }
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.accordion_layout, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mRootView = inflater.inflate(R.layout.accordion_layout, container, false);
 
-        rootView.findViewById(R.id.accordionHeader).setOnClickListener(this);
-        mTitleContainer = rootView.findViewById(R.id.accordionHeaderTitleContainer);
-        mColorBandView = rootView.findViewById(R.id.accordionHeaderColorBand);
+        mRootView.findViewById(R.id.accordionHeaderContainer).setOnClickListener(this);
+        mHeaderCustomContainer = mRootView.findViewById(R.id.accordionHeaderCustomContainer);
+        mTitleCustomContainer = mRootView.findViewById(R.id.accordionHeaderTitleCustomContainer);
+        mColorBandView = mRootView.findViewById(R.id.accordionHeaderColorBand);
         applyColorBandVisibility();
 
-        mMarkView = rootView.findViewById(R.id.accordionHeaderMarkView);
-        mTitleView = rootView.findViewById(R.id.accordionHeaderTitleView);
+        mMarkView = mRootView.findViewById(R.id.accordionHeaderMarkView);
+        mTitleView = mRootView.findViewById(R.id.accordionHeaderTitleView);
 
-        mContentContainer = rootView.findViewById(R.id.accordionContentContainer);
+        mContentContainer = mRootView.findViewById(R.id.accordionContentContainer);
 
-        return rootView;
+        return mRootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (mCustomHeaderView != null)
+            attachCustomHeaderView();
         if (mCustomTitleView != null)
             attachCustomTitleView();
         else
@@ -90,14 +106,13 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.accordionHeader) {
-            if (mIsExpand) collapse(mAnimationDurationInMillis);
-            else expand(mAnimationDurationInMillis);
-        }
+        if (v.getId() == R.id.accordionHeaderContainer)
+            toggle();
     }
 
     public void setContentView(@LayoutRes int layoutResId) {
-        mContentView = LayoutInflater.from(getContext()).inflate(layoutResId, mContentContainer, false);
+        mContentView = LayoutInflater.from(getContext())
+                .inflate(layoutResId, mContentContainer, false);
         mContentViewParams = null;
         attachContentView();
     }
@@ -177,8 +192,20 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         applyColorBandVisibility();
     }
 
+    public void setHeaderView(@LayoutRes int layoutResId) {
+        mCustomHeaderView = LayoutInflater.from(getContext())
+                .inflate(layoutResId, mHeaderCustomContainer, false);
+        attachCustomHeaderView();
+    }
+
+    public void setHeaderView(View view) {
+        mCustomHeaderView = view;
+        attachCustomHeaderView();
+    }
+
     public void setTitleView(@LayoutRes int layoutResId) {
-        mCustomTitleView = LayoutInflater.from(getContext()).inflate(layoutResId, mTitleContainer, false);
+        mCustomTitleView = LayoutInflater.from(getContext())
+                .inflate(layoutResId, mTitleCustomContainer, false);
         attachCustomTitleView();
     }
 
@@ -189,6 +216,15 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
 
     public void setAnimationDuration(long durationInMillis) {
         mAnimationDurationInMillis = durationInMillis;
+    }
+
+    public void toggle() {
+        toggle(mAnimationDurationInMillis);
+    }
+
+    public void toggle(long durationInMillis) {
+        if (mIsExpand) collapse(durationInMillis);
+        else expand(durationInMillis);
     }
 
     public void expand() {
@@ -229,18 +265,32 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         mContentContainer.invalidate();
     }
 
-    private void attachCustomTitleView() {
-        if (mTitleContainer == null || mCustomTitleView == null) return;
+    private void attachCustomHeaderView() {
+        if (mHeaderCustomContainer == null || mCustomHeaderView == null) return;
 
-        mTitleContainer.addView(mCustomTitleView);
+        mHeaderCustomContainer.addView(mCustomHeaderView);
+        mRootView.findViewById(R.id.accordionHeader).setVisibility(View.INVISIBLE);
+        mHeaderCustomContainer.setVisibility(View.VISIBLE);
+    }
+
+    private void attachCustomTitleView() {
+        if (mTitleCustomContainer == null || mCustomTitleView == null) return;
+
+        mTitleCustomContainer.addView(mCustomTitleView);
+        mRootView.findViewById(R.id.accordionHeader).setVisibility(View.VISIBLE);
+        mHeaderCustomContainer.setVisibility(View.INVISIBLE);
         mTitleView.setVisibility(View.INVISIBLE);
-        mTitleContainer.requestLayout();
-        mTitleContainer.invalidate();
+        mTitleCustomContainer.setVisibility(View.VISIBLE);
     }
 
     private void applyTitle() {
         if (mTitleView == null) return;
-        if (mTitleView.getVisibility() != View.VISIBLE) mTitleView.setVisibility(View.VISIBLE);
+
+        mHeaderCustomContainer.setVisibility(View.INVISIBLE);
+        mRootView.findViewById(R.id.accordionHeader).setVisibility(View.VISIBLE);
+        mTitleCustomContainer.setVisibility(View.INVISIBLE);
+        mTitleView.setVisibility(View.VISIBLE);
+
         mTitleView.setText(mTitle.text);
 
         mTitleView.setTypeface(mTitleView.getTypeface(), mTitle.titleBold ?
