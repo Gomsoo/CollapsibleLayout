@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
  */
 public class AccordionView extends ViewGroup {
 
-    private FrameLayout mContentLayout;
+    private FrameLayout mContentContainer;
 
     public AccordionView(Context context) {
         this(context, null);
@@ -64,7 +64,7 @@ public class AccordionView extends ViewGroup {
             }
         }
         super.addView(rootView, -1, params);
-        mContentLayout = rootView.findViewById(R.id.accordionContentLayout);
+        mContentContainer = rootView.findViewById(R.id.accordionContentContainer);
     }
 
     @Override
@@ -184,22 +184,22 @@ public class AccordionView extends ViewGroup {
     }
 
     public void setContentView(@LayoutRes int layoutResID) {
-        mContentLayout.removeAllViews();
-        inflate(getContext(), layoutResID, mContentLayout);
+        mContentContainer.removeAllViews();
+        inflate(getContext(), layoutResID, mContentContainer);
         requestLayout();
         invalidate();
     }
 
     public void setContentView(View view) {
-        mContentLayout.removeAllViews();
-        mContentLayout.addView(view);
+        mContentContainer.removeAllViews();
+        mContentContainer.addView(view);
         requestLayout();
         invalidate();
     }
 
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-        mContentLayout.removeAllViews();
-        mContentLayout.addView(view, params);
+        mContentContainer.removeAllViews();
+        mContentContainer.addView(view, params);
         requestLayout();
         invalidate();
     }

@@ -15,12 +15,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AccordionFragment fragment = (AccordionFragment)
-                getSupportFragmentManager().findFragmentById(R.id.accordionFragment);
-        fragment.setContentView(R.layout.accordion_content);
-        fragment.setTitle(R.string.title, true, false);
-        fragment.setTitleSize(20);
-        fragment.setTitleColorByResource(R.color.colorAccent);
-        fragment.setShowColorBand(false);
+        AccordionFragment fragment1 = (AccordionFragment)
+                getSupportFragmentManager().findFragmentById(R.id.accordionFragment1);
+        fragment1.setContentView(R.layout.accordion_content);
+        fragment1.setTitle(R.string.title, true, false);
+        fragment1.setTitleSize(20);
+        fragment1.setTitleColorByResource(R.color.colorAccent);
+        fragment1.setShowColorBand(false);
+
+        AccordionFragment fragment2 = (AccordionFragment)
+                getSupportFragmentManager().findFragmentById(R.id.accordionFragment2);
+        fragment2.setContentView(R.layout.accordion_content);
+        fragment2.setTitleView(R.layout.custom_title);
     }
 }

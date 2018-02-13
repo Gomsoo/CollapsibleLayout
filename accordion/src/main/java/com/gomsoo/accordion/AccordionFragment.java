@@ -25,7 +25,7 @@ import android.widget.TextView;
  */
 public class AccordionFragment extends Fragment implements View.OnClickListener {
 
-    private FrameLayout mContentLayout;
+    private FrameLayout mContentContainer;
     private int mExpandedHeight;
     private int mExpandedParamsHeight;
 
@@ -41,6 +41,9 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
 
     private TextView mTitleView;
     private Title mTitle;
+
+    private FrameLayout mTitleContainer;
+    private View mCustomTitleView;
 
     private static class Title {
         private String text;
@@ -61,18 +64,28 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         View rootView = inflater.inflate(R.layout.accordion_layout, container, false);
 
         rootView.findViewById(R.id.accordionHeader).setOnClickListener(this);
-
+        mTitleContainer = rootView.findViewById(R.id.accordionHeaderTitleContainer);
         mColorBandView = rootView.findViewById(R.id.accordionHeaderColorBand);
         applyColorBandVisibility();
 
         mMarkView = rootView.findViewById(R.id.accordionHeaderMarkView);
-
         mTitleView = rootView.findViewById(R.id.accordionHeaderTitleView);
-        applyTitle();
 
-        mContentLayout = rootView.findViewById(R.id.accordionContentLayout);
-        attachContentView();
+        mContentContainer = rootView.findViewById(R.id.accordionContentContainer);
+
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (mCustomTitleView != null)
+            attachCustomTitleView();
+        else
+            applyTitle();
+
+        attachContentView();
     }
 
     @Override
@@ -84,7 +97,7 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
     }
 
     public void setContentView(@LayoutRes int layoutResId) {
-        mContentView = LayoutInflater.from(getContext()).inflate(layoutResId, mContentLayout, false);
+        mContentView = LayoutInflater.from(getContext()).inflate(layoutResId, mContentContainer, false);
         mContentViewParams = null;
         attachContentView();
     }
@@ -164,6 +177,16 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         applyColorBandVisibility();
     }
 
+    public void setTitleView(@LayoutRes int layoutResId) {
+        mCustomTitleView = LayoutInflater.from(getContext()).inflate(layoutResId, mTitleContainer, false);
+        attachCustomTitleView();
+    }
+
+    public void setTitleView(View view) {
+        mCustomTitleView = view;
+        attachCustomTitleView();
+    }
+
     public void setAnimationDuration(long durationInMillis) {
         mAnimationDurationInMillis = durationInMillis;
     }
@@ -174,7 +197,7 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
 
     public void expand(long durationInMillis) {
         mIsExpand = true;
-        mContentLayout.startAnimation(new ExpandAnimation(mContentLayout,
+        mContentContainer.startAnimation(new ExpandAnimation(mContentContainer,
                 mExpandedHeight, mExpandedParamsHeight, mMarkView, durationInMillis));
     }
 
@@ -184,30 +207,40 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
 
     public void collapse(long durationInMillis) {
         if (mExpandedHeight == 0 || mExpandedParamsHeight == 0) {
-            mExpandedHeight = mContentLayout.getHeight();
-            mExpandedParamsHeight = mContentLayout.getLayoutParams().height;
+            mExpandedHeight = mContentContainer.getHeight();
+            mExpandedParamsHeight = mContentContainer.getLayoutParams().height;
         }
         mIsExpand = false;
-        mContentLayout.startAnimation(
-                new CollapseAnimation(mContentLayout, mMarkView, durationInMillis));
+        mContentContainer.startAnimation(
+                new CollapseAnimation(mContentContainer, mMarkView, durationInMillis));
     }
 
     private void attachContentView() {
-        if (mContentLayout == null || mContentView == null) return;
+        if (mContentContainer == null || mContentView == null) return;
 
-        mContentLayout.removeAllViews();
+        mContentContainer.removeAllViews();
 
         if (mContentViewParams == null)
-            mContentLayout.addView(mContentView);
+            mContentContainer.addView(mContentView);
         else
-            mContentLayout.addView(mContentView, mContentViewParams);
+            mContentContainer.addView(mContentView, mContentViewParams);
 
-        mContentLayout.requestLayout();
-        mContentLayout.invalidate();
+        mContentContainer.requestLayout();
+        mContentContainer.invalidate();
+    }
+
+    private void attachCustomTitleView() {
+        if (mTitleContainer == null || mCustomTitleView == null) return;
+
+        mTitleContainer.addView(mCustomTitleView);
+        mTitleView.setVisibility(View.INVISIBLE);
+        mTitleContainer.requestLayout();
+        mTitleContainer.invalidate();
     }
 
     private void applyTitle() {
         if (mTitleView == null) return;
+        if (mTitleView.getVisibility() != View.VISIBLE) mTitleView.setVisibility(View.VISIBLE);
         mTitleView.setText(mTitle.text);
 
         mTitleView.setTypeface(mTitleView.getTypeface(), mTitle.titleBold ?
