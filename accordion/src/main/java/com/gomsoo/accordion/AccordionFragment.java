@@ -75,6 +75,14 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         return rootView;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.accordionHeader) {
+            if (mIsExpand) collapse(mAnimationDurationInMillis);
+            else expand(mAnimationDurationInMillis);
+        }
+    }
+
     public void setContentView(@LayoutRes int layoutResId) {
         mContentView = LayoutInflater.from(getContext()).inflate(layoutResId, mContentLayout, false);
         mContentViewParams = null;
@@ -156,6 +164,34 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
         applyColorBandVisibility();
     }
 
+    public void setAnimationDuration(long durationInMillis) {
+        mAnimationDurationInMillis = durationInMillis;
+    }
+
+    public void expand() {
+        expand(mAnimationDurationInMillis);
+    }
+
+    public void expand(long durationInMillis) {
+        mIsExpand = true;
+        mContentLayout.startAnimation(new ExpandAnimation(mContentLayout,
+                mExpandedHeight, mExpandedParamsHeight, mMarkView, durationInMillis));
+    }
+
+    public void collapse() {
+        collapse(mAnimationDurationInMillis);
+    }
+
+    public void collapse(long durationInMillis) {
+        if (mExpandedHeight == 0 || mExpandedParamsHeight == 0) {
+            mExpandedHeight = mContentLayout.getHeight();
+            mExpandedParamsHeight = mContentLayout.getLayoutParams().height;
+        }
+        mIsExpand = false;
+        mContentLayout.startAnimation(
+                new CollapseAnimation(mContentLayout, mMarkView, durationInMillis));
+    }
+
     private void attachContentView() {
         if (mContentLayout == null || mContentView == null) return;
 
@@ -185,30 +221,6 @@ public class AccordionFragment extends Fragment implements View.OnClickListener 
     private void applyColorBandVisibility() {
         if (mColorBandView == null) return;
         mColorBandView.setVisibility(mIsShowColorBand ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.accordionHeader) {
-            if (mIsExpand) collapse(mAnimationDurationInMillis);
-            else expand(mAnimationDurationInMillis);
-        }
-    }
-
-    private void expand(long durationInMillis) {
-        mIsExpand = true;
-        mContentLayout.startAnimation(new ExpandAnimation(mContentLayout,
-                mExpandedHeight, mExpandedParamsHeight, mMarkView, durationInMillis));
-    }
-
-    private void collapse(long durationInMillis) {
-        if (mExpandedHeight == 0 || mExpandedParamsHeight == 0) {
-            mExpandedHeight = mContentLayout.getHeight();
-            mExpandedParamsHeight = mContentLayout.getLayoutParams().height;
-        }
-        mIsExpand = false;
-        mContentLayout.startAnimation(
-                new CollapseAnimation(mContentLayout, mMarkView, durationInMillis));
     }
 
     private static class CollapseAnimation extends Animation {
