@@ -40,6 +40,11 @@ public class CollapsibleLayout extends FrameLayout {
         void onCollapseEnded(CollapsibleLayout layout);
     }
 
+    // TODO naming...
+    public interface MarkView {
+        View getExpandedMarkView();
+    }
+
     public CollapsibleLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -68,6 +73,8 @@ public class CollapsibleLayout extends FrameLayout {
                 toggle();
             }
         });
+        if (view instanceof MarkView)
+            setExpandedMarkView(((MarkView) view).getExpandedMarkView());
     }
 
     public void setExpandedMarkView(View view) {

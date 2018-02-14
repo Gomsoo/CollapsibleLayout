@@ -11,11 +11,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
+        <com.gomsoo.collapsible.CollapsibleHeaderView
             android:id="@+id/collapsibleLayoutButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="GO" />
+            android:layout_height="wrap_content" />
 
         <com.gomsoo.collapsible.CollapsibleLayout
             android:id="@+id/collapsibleLayout"
