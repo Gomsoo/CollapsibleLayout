@@ -1,6 +1,7 @@
 package com.gomsoo.collapsible;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -17,7 +18,7 @@ import android.widget.FrameLayout;
 public class CollapsibleLayout extends FrameLayout {
 
     private boolean mIsCollapse;
-    private long mAnimationDurationInMillis;
+    private long mAnimationDurationInMillis = 300L;
 
     private int mExpandedHeight;
     private int mExpandedParamsHeight;
@@ -102,7 +103,7 @@ public class CollapsibleLayout extends FrameLayout {
             mTargetParams = targetView.getLayoutParams();
             mInitialHeight = targetView.getHeight();
             mMarkView = markView;
-            mInitialRotation = markView.getRotation();
+            mInitialRotation = markView == null ? 0 : markView.getRotation();
             setDuration(durationInMillis);
 
             // targetView의 parent가 invalidate 되지 않아 최초 한 번 이후 applyTransformation이
@@ -147,7 +148,7 @@ public class CollapsibleLayout extends FrameLayout {
             mExpandedHeight = expandedHeight;
             mExpandedParamsHeight = expandedParamsHeight;
             mMarkView = markView;
-            mInitialRotation = markView.getRotation();
+            mInitialRotation = markView == null ? 0 : markView.getRotation();
             setDuration(durationInMillis);
 
             // targetView의 parent가 invalidate 되지 않아 최초 한 번 이후 applyTransformation이

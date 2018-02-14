@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.gomsoo.accordion.AccordionFragment;
 import com.gomsoo.accordion.R;
+import com.gomsoo.collapsible.CollapsibleLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final CollapsibleLayout collapsibleLayout = findViewById(R.id.collapsibleLayout);
+        collapsibleLayout.setHandler(findViewById(R.id.collapsibleLayoutButton));
 
         AccordionFragment fragment1 = (AccordionFragment)
                 getSupportFragmentManager().findFragmentById(R.id.accordionFragment1);

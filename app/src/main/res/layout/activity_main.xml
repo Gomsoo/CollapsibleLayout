@@ -11,6 +11,26 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/collapsibleLayoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GO" />
+
+        <com.gomsoo.collapsible.CollapsibleLayout
+            android:id="@+id/collapsibleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="JUST FOR TEST"
+                android:src="@mipmap/ic_launcher" />
+
+        </com.gomsoo.collapsible.CollapsibleLayout>
+
         <fragment
             android:id="@+id/accordionFragment1"
             android:name="com.gomsoo.accordion.AccordionFragment"
