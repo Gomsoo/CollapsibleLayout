@@ -20,7 +20,8 @@
         <com.gomsoo.collapsible.CollapsibleLayout
             android:id="@+id/collapsibleLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:animationDuration="1200">
 
             <ImageView
                 android:layout_width="wrap_content"

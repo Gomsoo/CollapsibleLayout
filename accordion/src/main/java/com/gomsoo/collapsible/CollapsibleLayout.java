@@ -1,6 +1,7 @@
 package com.gomsoo.collapsible;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
+
+import com.gomsoo.accordion.R;
 
 /**
  *
@@ -38,19 +41,24 @@ public class CollapsibleLayout extends FrameLayout {
     }
 
     public CollapsibleLayout(@NonNull Context context) {
-        super(context);
+        this(context, null);
     }
 
     public CollapsibleLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public CollapsibleLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        this(context, attrs, defStyleAttr, 0);
     }
 
     public CollapsibleLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+                attrs, R.styleable.CollapsibleLayout, defStyleAttr, defStyleRes);
+        mAnimationDurationInMillis = a.getInt(R.styleable.CollapsibleLayout_animationDuration, 300);
+        a.recycle();
     }
 
     public void setHandler(View view) {
@@ -101,6 +109,14 @@ public class CollapsibleLayout extends FrameLayout {
         mIsCollapse = false;
         startAnimation(new ExpandAnimation(this, mExpandedHeight,
                 mExpandedParamsHeight, mMarkView, durationInMillis, mOnExpandListener));
+    }
+
+    public boolean isCollapse() {
+        return mIsCollapse;
+    }
+
+    public boolean isExpand() {
+        return !mIsCollapse;
     }
 
     public void setOnExpandListener(OnExpandListener listener) {

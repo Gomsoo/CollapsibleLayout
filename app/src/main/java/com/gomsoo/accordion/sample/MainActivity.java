@@ -18,29 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
         final CollapsibleLayout collapsibleLayout = findViewById(R.id.collapsibleLayout);
         collapsibleLayout.setHandler(findViewById(R.id.collapsibleLayoutButton));
-        collapsibleLayout.setOnCollapseListener(new CollapsibleLayout.OnCollapseListener() {
-            @Override
-            public void onCollapseStarted(CollapsibleLayout layout) {
-                Log.i("GomsooCollapsible", "onCollapsibleStarted");
-            }
-
-            @Override
-            public void onCollapseEnded(CollapsibleLayout layout) {
-                Log.i("GomsooCollapsible", "onCollapsibleEnded");
-            }
-        });
-
-        collapsibleLayout.setOnExpandListener(new CollapsibleLayout.OnExpandListener() {
-            @Override
-            public void onExpandStarted(CollapsibleLayout layout) {
-                Log.i("GomsooCollapsible", "onExpandStarted");
-            }
-
-            @Override
-            public void onExpandEnded(CollapsibleLayout layout) {
-                Log.i("GomsooCollapsible", "onExpandEnded");
-            }
-        });
 
         AccordionFragment fragment1 = (AccordionFragment)
                 getSupportFragmentManager().findFragmentById(R.id.accordionFragment1);
