@@ -3,4 +3,8 @@
     <declare-styleable name="CollapsibleLayout">
         <attr name="animationDuration" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="CollapsibleHeaderView">
+        <attr name="title" format="string" />
+    </declare-styleable>
 </resources>
