@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -20,24 +24,26 @@ import com.gomsoo.accordion.R;
  *
  * Created by Moon on 2018-02-14.
  */
-public class CollapsibleHeaderView extends CardView implements CollapsibleLayout.HandlerWithMarkView,
-        View.OnClickListener {
+public class CollapsibleHeaderView extends CardView implements CollapsibleLayout.HandlerWithMarkView {
 
-    private boolean mIsEndMarkStyle;
+    private boolean mIsMarkPositionEnd;
 
     private View mHeaderDefaultContainer;
     private FrameLayout mHeaderCustomContainer;
+    private View mCustomHeaderView;
 
     private Title mTitle;
     private TextView mTitleView;
     private FrameLayout mTitleCustomContainer;
+    private View mCustomTitleView;
 
     private View mColorBandView;
+    private boolean mIsShowColorBand;
 
     private static class Title {
         private String text;
-        private boolean titleBold;
-        private boolean titleItalic;
+        private boolean bold;
+        private boolean italic;
         private int unit = TypedValue.COMPLEX_UNIT_SP;
         private float size = 15;
         private int color = Color.BLACK;
@@ -62,8 +68,7 @@ public class CollapsibleHeaderView extends CardView implements CollapsibleLayout
 
     private void initializeChildren(@NonNull Context context) {
         removeAllViews();
-        View rootView = inflate(context, R.layout.collapsible_header_view, this);
-        rootView.setOnClickListener(this);
+        inflate(context, R.layout.collapsible_header_view, this);
 
         mHeaderDefaultContainer = findViewById(R.id.collapsibleHeaderDefaultContainer);
         mHeaderCustomContainer = findViewById(R.id.collapsibleHeaderCustomContainer);
@@ -77,6 +82,7 @@ public class CollapsibleHeaderView extends CardView implements CollapsibleLayout
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.CollapsibleHeaderView, defStyleAttr, 0);
         try {
+            mIsMarkPositionEnd = a.getInteger(R.styleable.CollapsibleHeaderView_markPosition, 0) == 1;
             mTitle.text = a.getString(R.styleable.CollapsibleHeaderView_title);
         } finally {
             a.recycle();
@@ -84,17 +90,20 @@ public class CollapsibleHeaderView extends CardView implements CollapsibleLayout
     }
 
     private void initializeChildProperties() {
-        // TODO
-    }
+        if (mCustomHeaderView != null)
+            attachCustomHeaderView();
+        else if (mCustomTitleView != null)
+            attachCustomTitleView();
+        else
+            applyTitle();
 
-    @Override
-    public void onClick(View v) {
-
+        applyColorBandVisibility();
+        applyMarkPosition();
     }
 
     @Override
     public View getExpandedMarkView() {
-        if (mIsEndMarkStyle)
+        if (mIsMarkPositionEnd)
             return findViewById(R.id.collapsibleHeaderEndMarkView);
         return findViewById(R.id.collapsibleHeaderStartMarkView);
     }
@@ -109,6 +118,102 @@ public class CollapsibleHeaderView extends CardView implements CollapsibleLayout
         applyTitle();
     }
 
+    public void setTitleBold(boolean bold) {
+        mTitle.bold = bold;
+        applyTitle();
+    }
+
+    public void setTitleItalic(boolean italic) {
+        mTitle.italic = italic;
+        applyTitle();
+    }
+
+    public void setTitle(String title, boolean bold, boolean italic) {
+        mTitle.text = title;
+        mTitle.bold = bold;
+        mTitle.italic = italic;
+        applyTitle();
+    }
+
+    public void setTitle(@StringRes int titleResId, boolean bold, boolean italic) {
+        mTitle.text = getContext().getString(titleResId);
+        mTitle.bold = bold;
+        mTitle.italic = italic;
+        applyTitle();
+    }
+
+    public void setTitleSize(float size) {
+        mTitle.unit = TypedValue.COMPLEX_UNIT_SP;
+        mTitle.size = size;
+        applyTitle();
+    }
+
+    public void setTitleSize(int unit, float size) {
+        mTitle.unit = unit;
+        mTitle.size = size;
+        applyTitle();
+    }
+
+    public void setTitleColor(int color) {
+        mTitle.color = color;
+        applyTitle();
+    }
+
+    public void setTitleColorByResource(@ColorRes int colorResId) {
+        mTitle.color = ContextCompat.getColor(getContext(), colorResId);
+        applyTitle();
+    }
+
+    public void setShowColorBand(boolean show) {
+        mIsShowColorBand = show;
+        applyColorBandVisibility();
+    }
+
+    public void setHeaderView(@LayoutRes int layoutResId) {
+        mCustomHeaderView = LayoutInflater.from(getContext())
+                .inflate(layoutResId, mHeaderCustomContainer, false);
+        attachCustomHeaderView();
+    }
+
+    public void setHeaderView(View view) {
+        mCustomHeaderView = view;
+        attachCustomHeaderView();
+    }
+
+    public void setTitleView(@LayoutRes int layoutResId) {
+        mCustomTitleView = LayoutInflater.from(getContext())
+                .inflate(layoutResId, mTitleCustomContainer, false);
+        attachCustomTitleView();
+    }
+
+    public void setTitleView(View view) {
+        mCustomTitleView = view;
+        attachCustomTitleView();
+    }
+
+    public void setMarkPositionEnd(boolean end) {
+        mIsMarkPositionEnd = end;
+        applyMarkPosition();
+    }
+
+    private void attachCustomHeaderView() {
+        if (mHeaderCustomContainer == null || mCustomHeaderView == null) return;
+
+        mHeaderCustomContainer.addView(mCustomHeaderView);
+        mHeaderDefaultContainer.setVisibility(View.INVISIBLE);
+        mHeaderCustomContainer.setVisibility(View.VISIBLE);
+    }
+
+    private void attachCustomTitleView() {
+        if (mTitleCustomContainer == null || mCustomTitleView == null) return;
+
+        mTitleCustomContainer.addView(mCustomTitleView);
+        mHeaderDefaultContainer.setVisibility(View.VISIBLE);
+        mHeaderCustomContainer.setVisibility(View.INVISIBLE);
+        mTitleView.setVisibility(View.INVISIBLE);
+        mTitleCustomContainer.setVisibility(View.VISIBLE);
+    }
+
     private void applyTitle() {
         mHeaderCustomContainer.setVisibility(View.INVISIBLE);
         mTitleCustomContainer.setVisibility(View.INVISIBLE);
@@ -117,11 +222,23 @@ public class CollapsibleHeaderView extends CardView implements CollapsibleLayout
 
         mTitleView.setText(mTitle.text);
 
-        mTitleView.setTypeface(mTitleView.getTypeface(), mTitle.titleBold ?
-                (mTitle.titleItalic ? Typeface.BOLD_ITALIC : Typeface.BOLD) :
-                (mTitle.titleItalic ? Typeface.ITALIC : Typeface.NORMAL));
+        mTitleView.setTypeface(mTitleView.getTypeface(), mTitle.bold ?
+                (mTitle.italic ? Typeface.BOLD_ITALIC : Typeface.BOLD) :
+                (mTitle.italic ? Typeface.ITALIC : Typeface.NORMAL));
 
         mTitleView.setTextSize(mTitle.unit, mTitle.size);
         mTitleView.setTextColor(mTitle.color);
+    }
+
+    private void applyColorBandVisibility() {
+        if (mColorBandView == null) return;
+        mColorBandView.setVisibility(mIsShowColorBand ? View.VISIBLE : View.GONE);
+    }
+
+    private void applyMarkPosition() {
+        findViewById(R.id.collapsibleHeaderStartMarkView)
+                .setVisibility(mIsMarkPositionEnd ? GONE : VISIBLE);
+        findViewById(R.id.collapsibleHeaderEndMarkView)
+                .setVisibility(mIsMarkPositionEnd ? VISIBLE : GONE);
     }
 }
