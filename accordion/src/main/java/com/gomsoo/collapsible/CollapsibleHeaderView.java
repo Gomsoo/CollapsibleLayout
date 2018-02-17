@@ -106,6 +106,16 @@ public class CollapsibleHeaderView extends CardView implements
             }
             mTitle.color = a.getColor(R.styleable.CollapsibleHeaderView_collapsible_titleColor, mTitle.color);
             mMark = a.getDrawable(R.styleable.CollapsibleHeaderView_collapsible_mark);
+
+            int customHeaderId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customHeader, -1);
+            if (customHeaderId != -1)
+                mCustomHeaderView = LayoutInflater.from(getContext())
+                        .inflate(customHeaderId, mHeaderCustomContainer, false);
+
+            int customTitleId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customTitle, -1);
+            if (customTitleId != -1)
+                mCustomTitleView = LayoutInflater.from(getContext())
+                        .inflate(customTitleId, mTitleCustomContainer, false);
         } finally {
             a.recycle();
         }
