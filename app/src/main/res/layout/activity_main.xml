@@ -12,22 +12,53 @@
         android:orientation="vertical">
 
         <com.gomsoo.collapsible.CollapsibleHeaderView
-            android:id="@+id/collapsibleLayoutButton"
+            android:id="@+id/collapsibleHeaderView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:showColorBand="false"
+            app:title="Collapsible Header View Test"
+            app:titleColor="@color/colorPrimaryDark"
+            app:titleSize="18sp"
+            app:titleStyle="bold|italic" />
 
         <com.gomsoo.collapsible.CollapsibleLayout
             android:id="@+id/collapsibleLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:animationDuration="1200">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="JUST FOR TEST"
-                android:src="@mipmap/ic_launcher" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:contentDescription="JUST FOR TEST"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_launcher" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:contentDescription="JUST FOR TEST"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_launcher" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:contentDescription="JUST FOR TEST"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_launcher" />
+
+            </LinearLayout>
 
         </com.gomsoo.collapsible.CollapsibleLayout>
 

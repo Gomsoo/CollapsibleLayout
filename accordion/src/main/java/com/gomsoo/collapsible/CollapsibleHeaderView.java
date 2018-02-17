@@ -26,6 +26,9 @@ import com.gomsoo.accordion.R;
  */
 public class CollapsibleHeaderView extends CardView implements CollapsibleLayout.HandlerWithMarkView {
 
+    private static final int BOLD = 1;
+    private static final int ITALIC = 2;
+
     private boolean mIsMarkPositionEnd;
 
     private View mHeaderDefaultContainer;
@@ -60,6 +63,7 @@ public class CollapsibleHeaderView extends CardView implements CollapsibleLayout
     public CollapsibleHeaderView(@NonNull Context context,
                                  @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mTitle = new Title();
 
         initializeChildren(context);
         initializeProperties(context, attrs, defStyleAttr);
@@ -83,7 +87,18 @@ public class CollapsibleHeaderView extends CardView implements CollapsibleLayout
                 attrs, R.styleable.CollapsibleHeaderView, defStyleAttr, 0);
         try {
             mIsMarkPositionEnd = a.getInteger(R.styleable.CollapsibleHeaderView_markPosition, 0) == 1;
+            mIsShowColorBand = a.getBoolean(R.styleable.CollapsibleHeaderView_showColorBand, true);
             mTitle.text = a.getString(R.styleable.CollapsibleHeaderView_title);
+            int styleFlag = a.getInteger(R.styleable.CollapsibleHeaderView_titleStyle, 0);
+            mTitle.bold = (styleFlag & BOLD) != 0;
+            mTitle.italic = (styleFlag & ITALIC) != 0;
+            mTitle.size = a.getDimensionPixelSize(R.styleable.CollapsibleHeaderView_titleSize, -1);
+            mTitle.unit = TypedValue.COMPLEX_UNIT_PX;
+            if (mTitle.size == -1) {
+                mTitle.size = 15;
+                mTitle.unit = TypedValue.COMPLEX_UNIT_SP;
+            }
+            mTitle.color = a.getColor(R.styleable.CollapsibleHeaderView_titleColor, mTitle.color);
         } finally {
             a.recycle();
         }
