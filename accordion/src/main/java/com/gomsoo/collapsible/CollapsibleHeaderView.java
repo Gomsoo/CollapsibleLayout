@@ -49,7 +49,7 @@ public class CollapsibleHeaderView extends CardView implements
 
     private Drawable mMark;
 
-    private static class Title {
+    static class Title {
         private CharSequence text;
         private boolean bold;
         private boolean italic;
