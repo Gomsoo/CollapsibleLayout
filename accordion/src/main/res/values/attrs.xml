@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CollapsibleLayout">
-        <attr name="animationDuration" format="integer" />
+        <attr name="collapsible_animationDuration" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="CollapsibleHeaderView">
-        <attr name="markPosition" format="enum">
+        <attr name="collapsible_markPosition" format="enum">
             <enum name="start" value="0" />
             <enum name="end" value="1" />
         </attr>
-        <attr name="showColorBand" format="boolean" />
-        <attr name="title" format="string" />
-        <attr name="titleStyle">
+        <attr name="collapsible_showColorBand" format="boolean" />
+        <attr name="collapsible_title" format="reference|string" />
+        <attr name="collapsible_titleStyle">
             <flag name="bold" value="1" />
             <flag name="italic" value="2" />
         </attr>
-        <attr name="titleSize" format="dimension" />
-        <attr name="titleColor" format="color" />
+        <attr name="collapsible_titleSize" format="reference|dimension" />
+        <attr name="collapsible_titleColor" format="reference|color" />
+        <attr name="collapsible_mark" format="reference" />
     </declare-styleable>
 </resources>

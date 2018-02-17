@@ -15,11 +15,13 @@
             android:id="@+id/collapsibleHeaderView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:showColorBand="false"
-            app:title="Collapsible Header View Test"
-            app:titleColor="@color/colorPrimaryDark"
-            app:titleSize="18sp"
-            app:titleStyle="bold|italic" />
+            app:collapsible_mark="@mipmap/ic_launcher_round"
+            app:collapsible_markPosition="end"
+            app:collapsible_showColorBand="false"
+            app:collapsible_title="@string/app_name"
+            app:collapsible_titleColor="@color/colorPrimaryDark"
+            app:collapsible_titleSize="18sp"
+            app:collapsible_titleStyle="bold|italic" />
 
         <com.gomsoo.collapsible.CollapsibleLayout
             android:id="@+id/collapsibleLayout"

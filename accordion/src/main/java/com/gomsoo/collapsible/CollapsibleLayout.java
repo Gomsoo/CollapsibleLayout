@@ -61,7 +61,7 @@ public class CollapsibleLayout extends FrameLayout {
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.CollapsibleLayout, defStyleAttr, defStyleRes);
-        mAnimationDurationInMillis = a.getInt(R.styleable.CollapsibleLayout_animationDuration, 300);
+        mAnimationDurationInMillis = a.getInt(R.styleable.CollapsibleLayout_collapsible_animationDuration, 300);
         a.recycle();
     }
 
