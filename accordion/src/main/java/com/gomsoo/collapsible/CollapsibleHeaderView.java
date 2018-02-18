@@ -50,12 +50,12 @@ public class CollapsibleHeaderView extends CardView implements
     private Drawable mMark;
 
     static class Title {
-        private CharSequence text;
-        private boolean bold;
-        private boolean italic;
-        private int unit = TypedValue.COMPLEX_UNIT_SP;
-        private float size = 15;
-        private int color = Color.BLACK;
+        CharSequence text;
+        boolean bold;
+        boolean italic;
+        int unit = TypedValue.COMPLEX_UNIT_SP;
+        float size = 15;
+        int color = Color.BLACK;
     }
 
     public CollapsibleHeaderView(@NonNull Context context) {
@@ -289,5 +289,10 @@ public class CollapsibleHeaderView extends CardView implements
         if (mMark == null) return;
         ((ImageView) findViewById(R.id.collapsibleHeaderEndMarkView)).setImageDrawable(mMark);
         ((ImageView) findViewById(R.id.collapsibleHeaderStartMarkView)).setImageDrawable(mMark);
+    }
+
+    void setTitleObject(Title title) {
+        mTitle = title;
+        applyTitle();
     }
 }

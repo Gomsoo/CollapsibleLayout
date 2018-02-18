@@ -63,22 +63,22 @@
         </com.gomsoo.collapsible.CollapsibleLayout>
 
         <fragment
-            android:id="@+id/accordionFragment1"
-            android:name="com.gomsoo.accordion.AccordionFragment"
+            android:id="@+id/collapsibleFragment1"
+            android:name="com.gomsoo.collapsible.CollapsibleFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp" />
 
         <fragment
-            android:id="@+id/accordionFragment2"
-            android:name="com.gomsoo.accordion.AccordionFragment"
+            android:id="@+id/collapsibleFragment2"
+            android:name="com.gomsoo.collapsible.CollapsibleFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp" />
 
         <fragment
-            android:id="@+id/accordionFragment3"
-            android:name="com.gomsoo.accordion.AccordionFragment"
+            android:id="@+id/collapsibleFragment3"
+            android:name="com.gomsoo.collapsible.CollapsibleFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp" />
