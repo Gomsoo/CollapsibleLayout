@@ -206,4 +206,12 @@ public class CollapsibleFragment extends Fragment {
         mAnimationDurationInMillis = durationInMillis;
         applyAnimationDuration();
     }
+
+    public boolean isCollapsed() {
+        return mContentContainer != null && mContentContainer.isCollapsed();
+    }
+
+    public boolean isExpanded() {
+        return mContentContainer == null || mContentContainer.isExpanded();
+    }
 }

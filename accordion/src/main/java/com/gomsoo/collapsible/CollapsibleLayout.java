@@ -19,7 +19,7 @@ import com.gomsoo.accordion.R;
  */
 public class CollapsibleLayout extends FrameLayout {
 
-    private boolean mIsCollapse;
+    private boolean mIsCollapsed;
     private long mAnimationDurationInMillis = 300L;
 
     private int mExpandedHeight;
@@ -73,10 +73,10 @@ public class CollapsibleLayout extends FrameLayout {
             }
         });
         if (view instanceof HandlerWithMarkView)
-            setExpandedMarkView(((HandlerWithMarkView) view).getExpandedMarkView());
+            setMarkViewForAnimation(((HandlerWithMarkView) view).getExpandedMarkView());
     }
 
-    public void setExpandedMarkView(View view) {
+    public void setMarkViewForAnimation(View view) {
         mMarkView = view;
     }
 
@@ -89,7 +89,7 @@ public class CollapsibleLayout extends FrameLayout {
     }
 
     public void toggle(long durationInMillis) {
-        if (mIsCollapse) expand(durationInMillis);
+        if (mIsCollapsed) expand(durationInMillis);
         else collapse(durationInMillis);
     }
 
@@ -102,7 +102,7 @@ public class CollapsibleLayout extends FrameLayout {
             mExpandedHeight = getHeight();
             mExpandedParamsHeight = getLayoutParams().height;
         }
-        mIsCollapse = true;
+        mIsCollapsed = true;
         startAnimation(new CollapseAnimation(
                 this, mMarkView, durationInMillis, mOnCollapseListener));
     }
@@ -112,17 +112,17 @@ public class CollapsibleLayout extends FrameLayout {
     }
 
     public void expand(long durationInMillis) {
-        mIsCollapse = false;
+        mIsCollapsed = false;
         startAnimation(new ExpandAnimation(this, mExpandedHeight,
                 mExpandedParamsHeight, mMarkView, durationInMillis, mOnExpandListener));
     }
 
-    public boolean isCollapse() {
-        return mIsCollapse;
+    public boolean isCollapsed() {
+        return mIsCollapsed;
     }
 
-    public boolean isExpand() {
-        return !mIsCollapse;
+    public boolean isExpanded() {
+        return !mIsCollapsed;
     }
 
     public void setOnExpandListener(OnExpandListener listener) {
