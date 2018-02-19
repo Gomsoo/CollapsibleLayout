@@ -1,101 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gomsoo.collapsible.sample.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".sample.MainActivity">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="100dp">
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.gomsoo.collapsible.CollapsibleHeaderView
-            android:id="@+id/collapsibleHeaderView"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:collapsible_customTitle="@layout/custom_title"
-            app:collapsible_markPosition="end"
-            app:collapsible_showColorBand="false"
-            app:collapsible_title="CollapsibleHeaderView TEST"
-            app:collapsible_titleSize="18sp" />
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/app_name" />
 
-        <com.gomsoo.collapsible.CollapsibleLayout
-            android:id="@+id/collapsibleLayout"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="@string/tab_text_1" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="2dp"
-                    android:contentDescription="JUST FOR TEST"
-                    android:scaleType="center"
-                    android:src="@mipmap/ic_launcher" />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_text_2" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="2dp"
-                    android:contentDescription="JUST FOR TEST"
-                    android:scaleType="center"
-                    android:src="@mipmap/ic_launcher" />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_text_3" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="2dp"
-                    android:contentDescription="JUST FOR TEST"
-                    android:scaleType="center"
-                    android:src="@mipmap/ic_launcher" />
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
 
-            </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        </com.gomsoo.collapsible.CollapsibleLayout>
-
-        <fragment
-            android:id="@+id/collapsibleFragment1"
-            android:name="com.gomsoo.collapsible.CollapsibleFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp" />
-
-        <fragment
-            android:id="@+id/collapsibleFragment2"
-            android:name="com.gomsoo.collapsible.CollapsibleFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp" />
-
-        <fragment
-            android:id="@+id/collapsibleFragment3"
-            android:name="com.gomsoo.collapsible.CollapsibleFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp" />
-
-        <fragment
-            android:id="@+id/collapsibleFragment4"
-            android:name="com.gomsoo.collapsible.CollapsibleFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:collapsible_content="@layout/accordion_content"
-            app:collapsible_showColorBand="false"
-            app:collapsible_title="@string/title"
-            app:collapsible_titleColor="@color/colorAccent"
-            app:collapsible_titleSize="20sp"
-            app:collapsible_titleStyle="bold" />
-
-    </LinearLayout>
-</ScrollView>
+</android.support.design.widget.CoordinatorLayout>

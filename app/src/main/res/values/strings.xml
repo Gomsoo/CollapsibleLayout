@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Collapsible</string>
+    <string name="tab_text_1">Using CollapsibleLayout</string>
+    <string name="tab_text_2">Customizing</string>
+    <string name="tab_text_3">Using CollapsibleFragment</string>
+
     <string name="title">Gomsoo Collapsible</string>
 </resources>

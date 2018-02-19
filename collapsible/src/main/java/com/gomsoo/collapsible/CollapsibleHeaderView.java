@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 /**
  *
- * Created by Moon on 2018-02-14.
+ * Created by Gomsoo on 2018-02-14.
  */
 public class CollapsibleHeaderView extends CardView implements
         CollapsibleLayout.HandlerWithMarkView {

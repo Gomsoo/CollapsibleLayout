@@ -1,11 +1,16 @@
 package com.gomsoo.collapsible.sample;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
-import com.gomsoo.collapsible.R;
 import com.gomsoo.collapsible.CollapsibleFragment;
-import com.gomsoo.collapsible.CollapsibleLayout;
+import com.gomsoo.collapsible.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,26 +19,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final CollapsibleLayout collapsibleLayout = findViewById(R.id.collapsibleLayout);
-        collapsibleLayout.setHandler(findViewById(R.id.collapsibleHeaderView));
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        CollapsibleFragment fragment1 = (CollapsibleFragment)
-                getSupportFragmentManager().findFragmentById(R.id.collapsibleFragment1);
-        fragment1.setContentView(R.layout.accordion_content);
-        fragment1.setTitle(R.string.title, true, false);
-        fragment1.setTitleSize(20);
-        fragment1.setTitleColorByResource(R.color.colorAccent);
-        fragment1.setShowColorBand(false);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        CollapsibleFragment fragment2 = (CollapsibleFragment)
-                getSupportFragmentManager().findFragmentById(R.id.collapsibleFragment2);
-        fragment2.setContentView(R.layout.accordion_content);
-        fragment2.setTitleView(R.layout.custom_title);
+        ViewPager viewPager = findViewById(R.id.container);
+        viewPager.setAdapter(sectionsPagerAdapter);
 
-        CollapsibleFragment fragment3 = (CollapsibleFragment)
-                getSupportFragmentManager().findFragmentById(R.id.collapsibleFragment3);
-        fragment3.setContentView(R.layout.accordion_content);
-        fragment3.setHeaderView(R.layout.custom_header);
-        fragment3.setAnimationDuration(600);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+    }
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new CollapsibleLayoutFragment();
+                case 1:
+                    return new CollapsibleLayoutFragment();
+                case 2:
+                    return new CollapsibleFragmentFragment();
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
     }
 }

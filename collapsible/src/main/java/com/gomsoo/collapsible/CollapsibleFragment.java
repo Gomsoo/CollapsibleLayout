@@ -23,7 +23,7 @@ import static com.gomsoo.collapsible.CollapsibleHeaderView.ITALIC;
 
 /**
  *
- * Created by Moon on 2018-02-18.
+ * Created by Gomsoo on 2018-02-18.
  */
 public class CollapsibleFragment extends Fragment {
 
@@ -124,6 +124,8 @@ public class CollapsibleFragment extends Fragment {
     private void attachContentView() {
         if (mContentContainer == null || mContentView == null) return;
         mContentContainer.removeAllViews();
+        if (mContentView.getParent() != null)
+            ((ViewGroup) mContentView.getParent()).removeView(mContentView);
         mContentContainer.addView(mContentView);
     }
 

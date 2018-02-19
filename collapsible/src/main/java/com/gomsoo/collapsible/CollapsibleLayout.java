@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 
 /**
  *
- * Created by Moon on 2018-02-14.
+ * Created by Gomsoo on 2018-02-14.
  */
 public class CollapsibleLayout extends FrameLayout {
 
