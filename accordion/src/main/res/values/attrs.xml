@@ -21,4 +21,8 @@
         <attr name="collapsible_customHeader" format="reference" />
         <attr name="collapsible_customTitle" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="CollapsibleFragment">
+        <attr name="collapsible_content" format="reference" />
+    </declare-styleable>
 </resources>

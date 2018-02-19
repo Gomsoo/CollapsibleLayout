@@ -30,8 +30,8 @@ import com.gomsoo.accordion.R;
 public class CollapsibleHeaderView extends CardView implements
         CollapsibleLayout.HandlerWithMarkView {
 
-    private static final int BOLD = 1;
-    private static final int ITALIC = 2;
+    static final int BOLD = 1;
+    static final int ITALIC = 2;
 
     private boolean mIsMarkPositionEnd;
 
@@ -224,17 +224,17 @@ public class CollapsibleHeaderView extends CardView implements
         attachCustomTitleView();
     }
 
-    public void setMarkPositionEnd(boolean end) {
+    public void setMarkPositionToEnd(boolean end) {
         mIsMarkPositionEnd = end;
         applyMarkPosition();
     }
 
-    public void setExpandedMark(Drawable mark) {
+    public void setMark(Drawable mark) {
         mMark = mark;
         applyMark();
     }
 
-    public void setExpandedMark(@DrawableRes int markResId) {
+    public void setMark(@DrawableRes int markResId) {
         mMark = getResources().getDrawable(markResId, null);
         applyMark();
     }

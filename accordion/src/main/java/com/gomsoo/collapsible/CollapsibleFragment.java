@@ -1,19 +1,27 @@
 package com.gomsoo.collapsible;
 
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gomsoo.accordion.R;
+
+import static com.gomsoo.collapsible.CollapsibleHeaderView.BOLD;
+import static com.gomsoo.collapsible.CollapsibleHeaderView.ITALIC;
 
 /**
  *
@@ -34,10 +42,58 @@ public class CollapsibleFragment extends Fragment {
 
     private CollapsibleLayout mContentContainer;
     private View mContentView;
-    private long mAnimationDurationInMillis = 300L;
+    private long mAnimationDurationInMillis;
+
+    private boolean mIsMarkPositionEnd;
+    private Drawable mMark;
 
     public CollapsibleFragment() {
         mTitle = new CollapsibleHeaderView.Title();
+    }
+
+    @Override
+    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+        super.onInflate(context, attrs, savedInstanceState);
+
+        TypedArray a = context.getTheme()
+                .obtainStyledAttributes(attrs, R.styleable.CollapsibleHeaderView, 0, 0);
+        try {
+            mIsMarkPositionEnd = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_markPosition, 0) == 1;
+            mIsShowColorBand = a.getBoolean(R.styleable.CollapsibleHeaderView_collapsible_showColorBand, true);
+            mTitle.text = a.getText(R.styleable.CollapsibleHeaderView_collapsible_title);
+            int styleFlag = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_titleStyle, 0);
+            mTitle.bold = (styleFlag & BOLD) != 0;
+            mTitle.italic = (styleFlag & ITALIC) != 0;
+            mTitle.size = a.getDimensionPixelSize(R.styleable.CollapsibleHeaderView_collapsible_titleSize, -1);
+            mTitle.unit = TypedValue.COMPLEX_UNIT_PX;
+            if (mTitle.size == -1) {
+                mTitle.size = 15;
+                mTitle.unit = TypedValue.COMPLEX_UNIT_SP;
+            }
+            mTitle.color = a.getColor(R.styleable.CollapsibleHeaderView_collapsible_titleColor, mTitle.color);
+            mMark = a.getDrawable(R.styleable.CollapsibleHeaderView_collapsible_mark);
+
+            mCustomHeaderId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customHeader, -1);
+            mCustomTitleId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customTitle, -1);
+        } finally {
+            a.recycle();
+        }
+
+        a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CollapsibleLayout, 0, 0);
+        try {
+            mAnimationDurationInMillis = a.getInt(R.styleable.CollapsibleLayout_collapsible_animationDuration, 300);
+        } finally {
+            a.recycle();
+        }
+
+        a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CollapsibleFragment, 0, 0);
+        try {
+            int contentId = a.getResourceId(R.styleable.CollapsibleFragment_collapsible_content, -1);
+            if (contentId != -1)
+                setContentView(contentId);
+        } finally {
+            a.recycle();
+        }
     }
 
     @Nullable
@@ -56,6 +112,8 @@ public class CollapsibleFragment extends Fragment {
 
         attachContentView();
         applyAnimationDuration();
+        applyMarkPosition();
+        applyMark();
 
         if (mCustomHeaderView != null)
             setCustomHeaderView();
@@ -97,6 +155,16 @@ public class CollapsibleFragment extends Fragment {
     private void applyAnimationDuration() {
         if (mContentContainer == null) return;
         mContentContainer.setAnimationDuration(mAnimationDurationInMillis);
+    }
+
+    private void applyMarkPosition() {
+        if (mHeaderView == null) return;
+        mHeaderView.setMarkPositionToEnd(mIsMarkPositionEnd);
+    }
+
+    private void applyMark() {
+        if (mHeaderView == null || mMark == null) return;
+        mHeaderView.setMark(mMark);
     }
 
     public void setContentView(@LayoutRes int layoutResId) {
@@ -213,5 +281,20 @@ public class CollapsibleFragment extends Fragment {
 
     public boolean isExpanded() {
         return mContentContainer == null || mContentContainer.isExpanded();
+    }
+
+    public void setMarkPositionToEnd(boolean end) {
+        mIsMarkPositionEnd = end;
+        applyMarkPosition();
+    }
+
+    public void setMark(Drawable mark) {
+        mMark = mark;
+        applyMark();
+    }
+
+    public void setMark(@DrawableRes int markResId) {
+        mMark = getResources().getDrawable(markResId, null);
+        applyMark();
     }
 }
