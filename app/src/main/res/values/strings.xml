@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">Collapsible</string>
-    <string name="tab_text_1">Using CollapsibleLayout</string>
+    <string name="tab_text_1">Collapsible Layout</string>
     <string name="tab_text_2">Customizing</string>
-    <string name="tab_text_3">Using CollapsibleFragment</string>
+    <string name="tab_text_3">Collapsible Fragment</string>
 
     <string name="title">Gomsoo Collapsible</string>
+    <string name="toggle">Toggle</string>
+    <string name="description_collapsible_layout_only">You can use CollapsibleLayout only without CollapsibleHeaderView.\nThis example shows you can use Android normal Button as a handler for it.</string>
+    <string name="description_collapsible_layout_with_header">You can use CollapsibleLayout with CollapsibleHeaderView.</string>
+    <string name="animation_duration_in_millis">Animation duration in milliseconds</string>
 </resources>

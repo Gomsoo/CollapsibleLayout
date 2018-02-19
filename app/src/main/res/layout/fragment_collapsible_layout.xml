@@ -5,14 +5,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/toggle" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description_collapsible_layout_only"
+                android:src="@mipmap/ic_launcher_round" />
+
+        </LinearLayout>
+
+        <com.gomsoo.collapsible.CollapsibleLayout
+            android:id="@+id/collapsibleLayoutOnly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="#eeeeee">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:text="@string/description_collapsible_layout_only"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+        </com.gomsoo.collapsible.CollapsibleLayout>
+
+    </LinearLayout>
+
     <com.gomsoo.collapsible.CollapsibleHeaderView
         android:id="@+id/collapsibleHeaderView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:collapsible_customTitle="@layout/custom_title"
-        app:collapsible_markPosition="end"
+        app:collapsible_markPosition="start"
         app:collapsible_showColorBand="false"
-        app:collapsible_title="CollapsibleHeaderView TEST"
+        app:collapsible_title="CollapsibleHeaderView"
         app:collapsible_titleSize="18sp" />
 
     <com.gomsoo.collapsible.CollapsibleLayout
@@ -20,40 +66,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:contentDescription="JUST FOR TEST"
-                android:scaleType="center"
-                android:src="@mipmap/ic_launcher" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:contentDescription="JUST FOR TEST"
-                android:scaleType="center"
-                android:src="@mipmap/ic_launcher" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:contentDescription="JUST FOR TEST"
-                android:scaleType="center"
-                android:src="@mipmap/ic_launcher" />
-
-        </LinearLayout>
+            android:background="#eeeeee"
+            android:padding="16dp"
+            android:text="@string/description_collapsible_layout_with_header"
+            android:textColor="#000"
+            android:textSize="16sp" />
 
     </com.gomsoo.collapsible.CollapsibleLayout>
+
+    <EditText
+        android:id="@+id/durationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:digits="0123456789"
+        android:hint="@string/animation_duration_in_millis"
+        android:inputType="numberDecimal" />
 
 </LinearLayout>
