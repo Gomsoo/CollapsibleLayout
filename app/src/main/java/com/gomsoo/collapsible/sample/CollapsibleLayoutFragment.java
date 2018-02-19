@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 
 import com.gomsoo.collapsible.CollapsibleHeaderView;
 import com.gomsoo.collapsible.CollapsibleLayout;
@@ -22,10 +24,10 @@ import com.gomsoo.collapsible.R;
  *
  * Created by Gomsoo on 2018-02-19.
  */
-public class CollapsibleLayoutFragment extends Fragment implements TextWatcher, RadioGroup.OnCheckedChangeListener {
+public class CollapsibleLayoutFragment extends Fragment implements TextWatcher, RadioGroup.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener {
 
-    CollapsibleHeaderView mCollapsibleHeaderView;
-    CollapsibleLayout mCollapsibleLayout;
+    private CollapsibleHeaderView mCollapsibleHeaderView;
+    private CollapsibleLayout mCollapsibleLayout;
 
     @Nullable
     @Override
@@ -49,7 +51,9 @@ public class CollapsibleLayoutFragment extends Fragment implements TextWatcher, 
         ((RadioButton) rootView.findViewById(R.id.markPositionStart)).setChecked(true);
         group.setOnCheckedChangeListener(this);
 
-        Color
+        Switch colorBandSwitch = rootView.findViewById(R.id.colorBandSwitch);
+        colorBandSwitch.setChecked(false);
+        colorBandSwitch.setOnCheckedChangeListener(this);
 
         return rootView;
     }
@@ -77,5 +81,10 @@ public class CollapsibleLayoutFragment extends Fragment implements TextWatcher, 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         mCollapsibleHeaderView.setMarkPositionToEnd(checkedId == R.id.markPositionEnd);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        mCollapsibleHeaderView.setShowColorBand(isChecked);
     }
 }

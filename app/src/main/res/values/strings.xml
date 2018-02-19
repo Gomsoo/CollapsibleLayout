@@ -13,4 +13,5 @@
     <string name="mark_end">mark end</string>
     <string name="title_1_using_collapsiblelayout_only">1. Using CollapsibleLayout only</string>
     <string name="title_2_with_collapsibleheaderview">2. With CollapsibleHeaderView</string>
+    <string name="show_color_band">Show Color Band</string>
 </resources>

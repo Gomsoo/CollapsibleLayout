@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new CollapsibleLayoutFragment();
                 case 1:
-                    return new CollapsibleLayoutFragment();
+                    return new CustomizingFragment();
                 case 2:
                     return new CollapsibleFragmentFragment();
                 default:
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
     }
 }
