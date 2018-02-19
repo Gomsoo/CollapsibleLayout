@@ -1,1 +1,1 @@
-include ':app', ':accordion'
+include ':app', ':collapsible'
