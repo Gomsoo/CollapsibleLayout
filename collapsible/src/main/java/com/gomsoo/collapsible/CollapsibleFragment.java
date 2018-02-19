@@ -42,7 +42,7 @@ public class CollapsibleFragment extends Fragment {
     private View mContentView;
     private long mAnimationDurationInMillis;
 
-    private boolean mIsMarkPositionEnd;
+    private CollapsibleHeaderView.MarkPosition mMarkPosition;
     private Drawable mMark;
 
     public CollapsibleFragment() {
@@ -56,7 +56,8 @@ public class CollapsibleFragment extends Fragment {
         TypedArray a = context.getTheme()
                 .obtainStyledAttributes(attrs, R.styleable.CollapsibleHeaderView, 0, 0);
         try {
-            mIsMarkPositionEnd = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_markPosition, 0) == 1;
+            mMarkPosition = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_markPosition, 0) == 0 ?
+                    CollapsibleHeaderView.MarkPosition.START : CollapsibleHeaderView.MarkPosition.END;
             mIsShowColorBand = a.getBoolean(R.styleable.CollapsibleHeaderView_collapsible_showColorBand, true);
             mTitle.text = a.getText(R.styleable.CollapsibleHeaderView_collapsible_title);
             int styleFlag = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_titleStyle, 0);
@@ -159,7 +160,7 @@ public class CollapsibleFragment extends Fragment {
 
     private void applyMarkPosition() {
         if (mHeaderView == null) return;
-        mHeaderView.setMarkPositionToEnd(mIsMarkPositionEnd);
+        mHeaderView.setMarkPosition(mMarkPosition);
     }
 
     private void applyMark() {
@@ -283,9 +284,14 @@ public class CollapsibleFragment extends Fragment {
         return mContentContainer == null || mContentContainer.isExpanded();
     }
 
-    public void setMarkPositionToEnd(boolean end) {
-        mIsMarkPositionEnd = end;
+    public void setMarkPosition(CollapsibleHeaderView.MarkPosition position) {
+        mMarkPosition = position;
         applyMarkPosition();
+    }
+
+    public void setMarkPositionToEnd(boolean end) {
+        setMarkPosition(end ?
+                CollapsibleHeaderView.MarkPosition.END : CollapsibleHeaderView.MarkPosition.START);
     }
 
     public void setMark(Drawable mark) {

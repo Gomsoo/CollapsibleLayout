@@ -9,4 +9,8 @@
     <string name="description_collapsible_layout_only">You can use CollapsibleLayout only without CollapsibleHeaderView.\nThis example shows you can use Android normal Button as a handler for it.</string>
     <string name="description_collapsible_layout_with_header">You can use CollapsibleLayout with CollapsibleHeaderView.</string>
     <string name="animation_duration_in_millis">Animation duration in milliseconds</string>
+    <string name="mark_start">mark start</string>
+    <string name="mark_end">mark end</string>
+    <string name="title_1_using_collapsiblelayout_only">1. Using CollapsibleLayout only</string>
+    <string name="title_2_with_collapsibleheaderview">2. With CollapsibleHeaderView</string>
 </resources>

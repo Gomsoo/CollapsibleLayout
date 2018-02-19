@@ -70,8 +70,19 @@ public class CollapsibleLayout extends FrameLayout {
                 toggle();
             }
         });
+
         if (view instanceof HandlerWithMarkView)
             setMarkViewForAnimation(((HandlerWithMarkView) view).getExpandedMarkView());
+
+        if (view instanceof CollapsibleHeaderView) {
+            final CollapsibleHeaderView headerView = (CollapsibleHeaderView) view;
+            headerView.setOnMarkPositionChangedListener(new CollapsibleHeaderView.OnMarkPositionChangedListener() {
+                @Override
+                public void onMarkPositionChanged(CollapsibleHeaderView.MarkPosition position) {
+                    setMarkViewForAnimation(headerView.getExpandedMarkView());
+                }
+            });
+        }
     }
 
     public void setMarkViewForAnimation(View view) {

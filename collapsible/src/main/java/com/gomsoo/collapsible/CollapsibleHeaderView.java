@@ -31,7 +31,8 @@ public class CollapsibleHeaderView extends CardView implements
     static final int BOLD = 1;
     static final int ITALIC = 2;
 
-    private boolean mIsMarkPositionEnd;
+    private MarkPosition mMarkPosition;
+    private OnMarkPositionChangedListener mOnMarkPositionChangedListener;
 
     private View mHeaderDefaultContainer;
     private FrameLayout mHeaderCustomContainer;
@@ -46,6 +47,14 @@ public class CollapsibleHeaderView extends CardView implements
     private boolean mIsShowColorBand;
 
     private Drawable mMark;
+
+    public interface OnMarkPositionChangedListener {
+        void onMarkPositionChanged(MarkPosition position);
+    }
+
+    public enum MarkPosition {
+        START, END
+    }
 
     static class Title {
         CharSequence text;
@@ -90,7 +99,8 @@ public class CollapsibleHeaderView extends CardView implements
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.CollapsibleHeaderView, defStyleAttr, 0);
         try {
-            mIsMarkPositionEnd = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_markPosition, 0) == 1;
+//            mIsMarkPositionEnd = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_markPosition, 0) == 1;
+            mMarkPosition = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_markPosition, 0) == 0 ? MarkPosition.START : MarkPosition.END;
             mIsShowColorBand = a.getBoolean(R.styleable.CollapsibleHeaderView_collapsible_showColorBand, true);
             mTitle.text = a.getText(R.styleable.CollapsibleHeaderView_collapsible_title);
             int styleFlag = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_titleStyle, 0);
@@ -134,9 +144,11 @@ public class CollapsibleHeaderView extends CardView implements
 
     @Override
     public View getExpandedMarkView() {
-        if (mIsMarkPositionEnd)
+        if (mMarkPosition == MarkPosition.START)
+            return findViewById(R.id.collapsibleHeaderStartMarkView);
+        else if (mMarkPosition == MarkPosition.END)
             return findViewById(R.id.collapsibleHeaderEndMarkView);
-        return findViewById(R.id.collapsibleHeaderStartMarkView);
+        return null;
     }
 
     public void setTitle(CharSequence title) {
@@ -222,9 +234,15 @@ public class CollapsibleHeaderView extends CardView implements
         attachCustomTitleView();
     }
 
-    public void setMarkPositionToEnd(boolean end) {
-        mIsMarkPositionEnd = end;
+    public void setMarkPosition(MarkPosition position) {
+        mMarkPosition = position;
         applyMarkPosition();
+        if (mOnMarkPositionChangedListener != null)
+            mOnMarkPositionChangedListener.onMarkPositionChanged(mMarkPosition);
+    }
+
+    public void setMarkPositionToEnd(boolean end) {
+        setMarkPosition(end ? MarkPosition.END : MarkPosition.START);
     }
 
     public void setMark(Drawable mark) {
@@ -235,6 +253,10 @@ public class CollapsibleHeaderView extends CardView implements
     public void setMark(@DrawableRes int markResId) {
         mMark = getResources().getDrawable(markResId, null);
         applyMark();
+    }
+
+    public void setOnMarkPositionChangedListener(OnMarkPositionChangedListener listener) {
+        mOnMarkPositionChangedListener = listener;
     }
 
     private void attachCustomHeaderView() {
@@ -278,9 +300,9 @@ public class CollapsibleHeaderView extends CardView implements
 
     private void applyMarkPosition() {
         findViewById(R.id.collapsibleHeaderStartMarkView)
-                .setVisibility(mIsMarkPositionEnd ? GONE : VISIBLE);
+                .setVisibility(mMarkPosition == MarkPosition.END ? GONE : VISIBLE);
         findViewById(R.id.collapsibleHeaderEndMarkView)
-                .setVisibility(mIsMarkPositionEnd ? VISIBLE : GONE);
+                .setVisibility(mMarkPosition == MarkPosition.END ? VISIBLE : GONE);
     }
 
     private void applyMark() {

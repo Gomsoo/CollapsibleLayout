@@ -3,79 +3,131 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="16dp"
+        android:text="@string/title_1_using_collapsiblelayout_only"
+        android:textColor="#000"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/toggle" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/toggle" />
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/description_collapsible_layout_only"
+                    android:src="@mipmap/ic_launcher_round" />
+
+            </LinearLayout>
+
+            <com.gomsoo.collapsible.CollapsibleLayout
+                android:id="@+id/collapsibleLayoutOnly"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/description_collapsible_layout_only"
-                android:src="@mipmap/ic_launcher_round" />
+                android:layout_marginBottom="16dp"
+                android:background="@color/colorPrimaryLight">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:text="@string/description_collapsible_layout_only"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </com.gomsoo.collapsible.CollapsibleLayout>
 
         </LinearLayout>
 
-        <com.gomsoo.collapsible.CollapsibleLayout
-            android:id="@+id/collapsibleLayoutOnly"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="#eeeeee">
+    </android.support.v7.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:text="@string/description_collapsible_layout_only"
-                android:textColor="#000"
-                android:textSize="16sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/title_2_with_collapsibleheaderview"
+        android:textColor="#000"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
-        </com.gomsoo.collapsible.CollapsibleLayout>
-
-    </LinearLayout>
-
-    <com.gomsoo.collapsible.CollapsibleHeaderView
-        android:id="@+id/collapsibleHeaderView"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:collapsible_markPosition="start"
-        app:collapsible_showColorBand="false"
-        app:collapsible_title="CollapsibleHeaderView"
-        app:collapsible_titleSize="18sp" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp">
 
-    <com.gomsoo.collapsible.CollapsibleLayout
-        android:id="@+id/collapsibleLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#eeeeee"
-            android:padding="16dp"
-            android:text="@string/description_collapsible_layout_with_header"
-            android:textColor="#000"
-            android:textSize="16sp" />
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
 
-    </com.gomsoo.collapsible.CollapsibleLayout>
+            <com.gomsoo.collapsible.CollapsibleHeaderView
+                android:id="@+id/collapsibleHeaderView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:collapsible_markPosition="start"
+                app:collapsible_showColorBand="false"
+                app:collapsible_title="CollapsibleHeaderView"
+                app:collapsible_titleSize="18sp" />
+
+            <com.gomsoo.collapsible.CollapsibleLayout
+                android:id="@+id/collapsibleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryLight"
+                    android:padding="16dp"
+                    android:text="@string/description_collapsible_layout_with_header"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </com.gomsoo.collapsible.CollapsibleLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
     <EditText
         android:id="@+id/durationEditText"
@@ -87,5 +139,27 @@
         android:digits="0123456789"
         android:hint="@string/animation_duration_in_millis"
         android:inputType="numberDecimal" />
+
+    <RadioGroup
+        android:id="@+id/markPositionGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/markPositionStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/mark_start" />
+
+        <RadioButton
+            android:id="@+id/markPositionEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mark_end" />
+    </RadioGroup>
 
 </LinearLayout>

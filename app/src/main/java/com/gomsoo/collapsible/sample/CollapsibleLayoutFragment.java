@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
+import com.gomsoo.collapsible.CollapsibleHeaderView;
 import com.gomsoo.collapsible.CollapsibleLayout;
 import com.gomsoo.collapsible.R;
 
@@ -19,8 +22,9 @@ import com.gomsoo.collapsible.R;
  *
  * Created by Gomsoo on 2018-02-19.
  */
-public class CollapsibleLayoutFragment extends Fragment implements TextWatcher {
+public class CollapsibleLayoutFragment extends Fragment implements TextWatcher, RadioGroup.OnCheckedChangeListener {
 
+    CollapsibleHeaderView mCollapsibleHeaderView;
     CollapsibleLayout mCollapsibleLayout;
 
     @Nullable
@@ -34,11 +38,18 @@ public class CollapsibleLayoutFragment extends Fragment implements TextWatcher {
         collapsibleLayoutOnly.setHandler(button);
         collapsibleLayoutOnly.setMarkViewForAnimation(rootView.findViewById(R.id.image));
 
+        mCollapsibleHeaderView = rootView.findViewById(R.id.collapsibleHeaderView);
         mCollapsibleLayout = rootView.findViewById(R.id.collapsibleLayout);
-        mCollapsibleLayout.setHandler(rootView.findViewById(R.id.collapsibleHeaderView));
+        mCollapsibleLayout.setHandler(mCollapsibleHeaderView);
 
         EditText durationEditText = rootView.findViewById(R.id.durationEditText);
         durationEditText.addTextChangedListener(this);
+
+        RadioGroup group = rootView.findViewById(R.id.markPositionGroup);
+        ((RadioButton) rootView.findViewById(R.id.markPositionStart)).setChecked(true);
+        group.setOnCheckedChangeListener(this);
+
+        Color
 
         return rootView;
     }
@@ -61,5 +72,10 @@ public class CollapsibleLayoutFragment extends Fragment implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        mCollapsibleHeaderView.setMarkPositionToEnd(checkedId == R.id.markPositionEnd);
     }
 }
