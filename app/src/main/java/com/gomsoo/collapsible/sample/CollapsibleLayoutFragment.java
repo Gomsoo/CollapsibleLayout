@@ -18,7 +18,6 @@ import android.widget.Switch;
 
 import com.gomsoo.collapsible.CollapsibleHeaderView;
 import com.gomsoo.collapsible.CollapsibleLayout;
-import com.gomsoo.collapsible.R;
 
 /**
  *

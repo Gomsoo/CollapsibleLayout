@@ -1,15 +1,28 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    userOrg = 'gomsoo'
+    repoName = 'maven'
+    groupId = 'com.github.gomsoo'
+    artifactId = 'collapsible-layout'
+    publishVersion = '1.0.0'
+    licences = ['MIT']
+    uploadName = 'CollapsibleLayout'
+    desc = 'CollapsibleLayout, CollapsibleHeaderView and CollapsibleFragment on Android'
+    website = 'https://github.com/Gomsoo/CollapsibleLayout'
+    issueTracker = 'https://github.com/Gomsoo/CollapsibleLayout/issues'
+    repository = 'https://github.com/Gomsoo/CollapsibleLayout.git'
+}
 
 android {
     compileSdkVersion 27
-
-
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gomsoo.collapsible.CollapsibleLayout;
-import com.gomsoo.collapsible.R;
 
 /**
  *

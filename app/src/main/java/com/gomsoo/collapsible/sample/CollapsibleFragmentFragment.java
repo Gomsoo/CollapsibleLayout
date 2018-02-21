@@ -8,9 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gomsoo.collapsible.CollapsibleFragment;
-import com.gomsoo.collapsible.R;
-
 /**
  *
  * Created by Gomsoo on 2018-02-19.
