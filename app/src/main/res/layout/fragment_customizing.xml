@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.gomsoo.collapsible.CollapsibleHeaderView
+            android:id="@+id/customizingTitleHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="16dp"
+            app:collapsible_customTitleLayout="@layout/custom_title" />
+
+        <com.gomsoo.collapsible.CollapsibleLayout
+            android:id="@+id/customizingTitleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/description_customizing_title" />
+
+        </com.gomsoo.collapsible.CollapsibleLayout>
+
+        <com.gomsoo.collapsible.CollapsibleHeaderView
+            android:id="@+id/customizingHeaderHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="20dp"
+            app:collapsible_customHeaderLayout="@layout/custom_header" />
+
+        <com.gomsoo.collapsible.CollapsibleLayout
+            android:id="@+id/customizingHeaderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/description_customizing_header" />
+
+        </com.gomsoo.collapsible.CollapsibleLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -6,33 +6,12 @@
     android:orientation="vertical">
 
     <fragment
-        android:id="@+id/collapsibleFragment1"
-        android:name="com.gomsoo.collapsible.CollapsibleFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
-
-    <fragment
-        android:id="@+id/collapsibleFragment2"
+        android:id="@+id/collapsibleFragment"
         android:name="com.gomsoo.collapsible.CollapsibleFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
-
-    <fragment
-        android:id="@+id/collapsibleFragment3"
-        android:name="com.gomsoo.collapsible.CollapsibleFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
-
-    <fragment
-        android:id="@+id/collapsibleFragment4"
-        android:name="com.gomsoo.collapsible.CollapsibleFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:collapsible_content="@layout/accordion_content"
+        android:layout_marginTop="16dp"
+        app:collapsible_content="@layout/collapsible_content"
         app:collapsible_showColorBand="false"
         app:collapsible_title="@string/title"
         app:collapsible_titleColor="@color/colorAccent"

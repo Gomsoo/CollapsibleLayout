@@ -72,8 +72,8 @@ public class CollapsibleFragment extends Fragment {
             mTitle.color = a.getColor(R.styleable.CollapsibleHeaderView_collapsible_titleColor, mTitle.color);
             mMark = a.getDrawable(R.styleable.CollapsibleHeaderView_collapsible_mark);
 
-            mCustomHeaderId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customHeader, -1);
-            mCustomTitleId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customTitle, -1);
+            mCustomHeaderId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customHeaderLayout, -1);
+            mCustomTitleId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customTitleLayout, -1);
         } finally {
             a.recycle();
         }
@@ -113,6 +113,7 @@ public class CollapsibleFragment extends Fragment {
         applyAnimationDuration();
         applyMarkPosition();
         applyMark();
+        applyColorBandVisibility();
 
         if (mCustomHeaderView != null)
             setCustomHeaderView();
@@ -166,6 +167,11 @@ public class CollapsibleFragment extends Fragment {
     private void applyMark() {
         if (mHeaderView == null || mMark == null) return;
         mHeaderView.setMark(mMark);
+    }
+
+    private void applyColorBandVisibility() {
+        if (mHeaderView == null) return;
+        mHeaderView.setShowColorBand(mIsShowColorBand);
     }
 
     public void setContentView(@LayoutRes int layoutResId) {
@@ -240,11 +246,6 @@ public class CollapsibleFragment extends Fragment {
     public void setShowColorBand(boolean show) {
         mIsShowColorBand = show;
         applyColorBandVisibility();
-    }
-
-    private void applyColorBandVisibility() {
-        if (mHeaderView == null) return;
-        mHeaderView.setShowColorBand(mIsShowColorBand);
     }
 
     public void setHeaderView(@LayoutRes int layoutResId) {

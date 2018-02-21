@@ -175,6 +175,28 @@
             android:layout_marginTop="16dp"
             android:text="@string/show_color_band" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Switch
+                android:id="@+id/boldSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/bold" />
+
+            <Switch
+                android:id="@+id/italicSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/italic" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

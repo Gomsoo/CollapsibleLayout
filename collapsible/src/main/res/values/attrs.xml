@@ -18,8 +18,8 @@
         <attr name="collapsible_titleSize" format="reference|dimension" />
         <attr name="collapsible_titleColor" format="reference|color" />
         <attr name="collapsible_mark" format="reference" />
-        <attr name="collapsible_customHeader" format="reference" />
-        <attr name="collapsible_customTitle" format="reference" />
+        <attr name="collapsible_customHeaderLayout" format="reference" />
+        <attr name="collapsible_customTitleLayout" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="CollapsibleFragment">

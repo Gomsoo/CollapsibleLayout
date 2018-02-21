@@ -99,7 +99,6 @@ public class CollapsibleHeaderView extends CardView implements
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.CollapsibleHeaderView, defStyleAttr, 0);
         try {
-//            mIsMarkPositionEnd = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_markPosition, 0) == 1;
             mMarkPosition = a.getInteger(R.styleable.CollapsibleHeaderView_collapsible_markPosition, 0) == 0 ? MarkPosition.START : MarkPosition.END;
             mIsShowColorBand = a.getBoolean(R.styleable.CollapsibleHeaderView_collapsible_showColorBand, true);
             mTitle.text = a.getText(R.styleable.CollapsibleHeaderView_collapsible_title);
@@ -115,12 +114,12 @@ public class CollapsibleHeaderView extends CardView implements
             mTitle.color = a.getColor(R.styleable.CollapsibleHeaderView_collapsible_titleColor, mTitle.color);
             mMark = a.getDrawable(R.styleable.CollapsibleHeaderView_collapsible_mark);
 
-            int customHeaderId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customHeader, -1);
+            int customHeaderId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customHeaderLayout, -1);
             if (customHeaderId != -1)
                 mCustomHeaderView = LayoutInflater.from(getContext())
                         .inflate(customHeaderId, mHeaderCustomContainer, false);
 
-            int customTitleId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customTitle, -1);
+            int customTitleId = a.getResourceId(R.styleable.CollapsibleHeaderView_collapsible_customTitleLayout, -1);
             if (customTitleId != -1)
                 mCustomTitleView = LayoutInflater.from(getContext())
                         .inflate(customTitleId, mTitleCustomContainer, false);

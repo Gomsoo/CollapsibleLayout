@@ -14,4 +14,9 @@
     <string name="title_1_using_collapsiblelayout_only">1. Using CollapsibleLayout only</string>
     <string name="title_2_with_collapsibleheaderview">2. With CollapsibleHeaderView</string>
     <string name="show_color_band">Show Color Band</string>
+    <string name="description_customizing_title">You can change title area of the CollapsibleHeaderView to your own layout.</string>
+    <string name="description_customizing_header">You can change all header area too.</string>
+    <string name="bold">Bold</string>
+    <string name="italic">Italic</string>
+    <string name="description_fragment">You can use CollapsibleFragment that same as using CollapsibleLayout with CollapsibleHeaderView.\nAll properties in both can be used on CollapsibleFragment.</string>
 </resources>

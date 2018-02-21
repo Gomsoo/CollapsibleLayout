@@ -24,10 +24,12 @@ import com.gomsoo.collapsible.R;
  *
  * Created by Gomsoo on 2018-02-19.
  */
-public class CollapsibleLayoutFragment extends Fragment implements TextWatcher, RadioGroup.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener {
+public class CollapsibleLayoutFragment extends Fragment implements TextWatcher,
+        RadioGroup.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener {
 
     private CollapsibleHeaderView mCollapsibleHeaderView;
     private CollapsibleLayout mCollapsibleLayout;
+    private Switch mBoldSwitch, mItalicSwitch;
 
     @Nullable
     @Override
@@ -54,6 +56,11 @@ public class CollapsibleLayoutFragment extends Fragment implements TextWatcher, 
         Switch colorBandSwitch = rootView.findViewById(R.id.colorBandSwitch);
         colorBandSwitch.setChecked(false);
         colorBandSwitch.setOnCheckedChangeListener(this);
+
+        mBoldSwitch = rootView.findViewById(R.id.boldSwitch);
+        mItalicSwitch = rootView.findViewById(R.id.italicSwitch);
+        mBoldSwitch.setOnCheckedChangeListener(this);
+        mItalicSwitch.setOnCheckedChangeListener(this);
 
         return rootView;
     }
@@ -85,6 +92,16 @@ public class CollapsibleLayoutFragment extends Fragment implements TextWatcher, 
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        mCollapsibleHeaderView.setShowColorBand(isChecked);
+        switch (buttonView.getId()) {
+            case R.id.colorBandSwitch:
+                mCollapsibleHeaderView.setShowColorBand(isChecked);
+                break;
+            case R.id.boldSwitch:
+                mCollapsibleHeaderView.setTitleBold(isChecked);
+                break;
+            case R.id.italicSwitch:
+                mCollapsibleHeaderView.setTitleItalic(isChecked);
+                break;
+        }
     }
 }
