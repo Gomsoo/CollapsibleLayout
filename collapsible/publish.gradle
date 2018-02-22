@@ -1,0 +1,15 @@
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    userOrg = 'gomsoo'
+    repoName = 'maven'
+    groupId = 'com.github.gomsoo'
+    artifactId = 'collapsible-layout'
+    publishVersion = '1.0.0'
+    licences = ['MIT']
+    uploadName = 'CollapsibleLayout'
+    desc = 'CollapsibleLayout, CollapsibleHeaderView and CollapsibleFragment on Android'
+    website = 'https://github.com/Gomsoo/CollapsibleLayout'
+    issueTracker = 'https://github.com/Gomsoo/CollapsibleLayout/issues'
+    repository = 'https://github.com/Gomsoo/CollapsibleLayout.git'
+}

@@ -167,8 +167,8 @@ public class CollapsibleLayout extends FrameLayout {
             mIsNotifiedStart = false;
             mIsNotifiedEnd = false;
 
-            // targetView의 parent가 invalidate 되지 않아 최초 한 번 이후 applyTransformation이
-            // 콜 되지 않는 현상이 있음
+            // Without this code, applyTransformation does not called.
+            // It is assumed that targetView's parent is not invalidated.
             targetView.setVisibility(View.VISIBLE);
         }
 
@@ -230,8 +230,8 @@ public class CollapsibleLayout extends FrameLayout {
             mIsNotifiedStart = false;
             mIsNotifiedEnd = false;
 
-            // targetView의 parent가 invalidate 되지 않아 최초 한 번 이후 applyTransformation이
-            // 콜 되지 않는 현상이 있음
+            // Without this code, applyTransformation does not called.
+            // It is assumed that targetView's parent is not invalidated.
             targetView.setVisibility(View.VISIBLE);
         }
 

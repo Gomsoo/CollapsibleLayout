@@ -1,19 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
-
-publish {
-    userOrg = 'gomsoo'
-    repoName = 'maven'
-    groupId = 'com.github.gomsoo'
-    artifactId = 'collapsible-layout'
-    publishVersion = '1.0.0'
-    licences = ['MIT']
-    uploadName = 'CollapsibleLayout'
-    desc = 'CollapsibleLayout, CollapsibleHeaderView and CollapsibleFragment on Android'
-    website = 'https://github.com/Gomsoo/CollapsibleLayout'
-    issueTracker = 'https://github.com/Gomsoo/CollapsibleLayout/issues'
-    repository = 'https://github.com/Gomsoo/CollapsibleLayout.git'
-}
 
 android {
     compileSdkVersion 27
@@ -34,7 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
@@ -45,3 +29,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:cardview-v7:27.0.2'
 }
+
+apply from: 'publish.gradle'
