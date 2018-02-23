@@ -104,15 +104,29 @@ collapsibleLayout.setHandler(collapsibleHeaderView);
     app:collapsible_titleStyle="bold" />
 ```
 
+If you use methods of fragment instead of using attributes in xml, add dependency in `build.gradle` of your module(app) level.
 
-## More Xml Attributes
-CollapsibleLayout and CollapsibleFragment
+```gradle
+dependencies {
+    ...
+    implementation 'com.android.support:cardview-v7:27.0.2'
+}
+```
+```java
+CollapsibleFragment collapsibleFragment = getSupportFragmentManager().getFragmentById(R.id.collapsibleFragment);
+collapsibleFragment.setTitle(R.string.title);
+collapsibleFragment.setTitleColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+```
+
+
+## Xml Attributes
+**CollapsibleLayout and CollapsibleFragment**
 
 Name | Values | Description
 -----|--------|-------------
 collapsible_animationDuration | number |
 
-CollapsibleHeaderView and CollapsibleFragment
+**CollapsibleHeaderView and CollapsibleFragment**
 
 Name | Values | Description
 -----|--------|-------------
@@ -126,12 +140,37 @@ collapsible_mark | drawable | Set the image to indicate when it is in the "expan
 collapsible_customHeaderLayout | layoutId | Your own layout file to replace the whole header area.
 collapsible_customTitleLayout | layoutId | Your own layout file to replace the title area.
 
-CollapsibleFragment only
+**CollapsibleFragment only**
 
 Name | Values | Description
 -----|--------|-------------
 collapsible_content | layoutId | Content layout
 
+
+
+## Methods
+
+**CollapsibleLayout**
+
+Return | Method(Parameters) | Description
+-------|--------------------|-------------
+`void` | `setHandler(View)` | Set a view to be trigger of the Layout's collapse and expand operation.
+`void` | `setMarkViewForAnimation(View)` | Set a view that represents collapsed or expanded state. Default image of the view should indicate expanded state like arrow down image. If you use CollapsibleHeaderView as a handler, you don't need to call this method.
+`void` | `setAnimationDuration(long)` | Duration in milliseconds for animation.
+`void` | `collapse()` | Close layout.
+`void` | `expand()` | Open layout.
+`void` | `collapse(long)` | Close layout with the duration passed as parameter. The passed duration is temporary value. The property that you have set by calling `setAnimationDuration(long)` will not changed.
+`void` | `expand(long)` | Open layout. It works same as `collapse(long)`.
+`void` | `toggle()` | Open if the layout was collapsed, otherwise close.
+`void` | `toggle(long)` | Open if thelayout was collapsed, otherwise close.
+`boolean` | `isCollapsed()` | Return true if the layout is collapsed, otherwise false.
+`boolean` | `isExpanded()` | Return true if the layout is expanded, otherwise false.
+
+
+**CollapsibleHeaderView**
+
+
+**CollapsibleFragment**
 
 
 
